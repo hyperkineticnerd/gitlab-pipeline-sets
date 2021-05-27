@@ -1,0 +1,18 @@
+image: registry.access.redhat.com/ubi8/python-38
+
+stages:
+  - build
+  - push
+
+variables:
+  TARGET: nexus.developer.hkn.lab:5001/gitlab-pipelines/ansible
+
+build_container:
+  stage: build
+  script:
+    - buildah bud -t $TARGET .
+
+push_container:
+  stage: push
+  script:
+    - buildah push $TARGET
