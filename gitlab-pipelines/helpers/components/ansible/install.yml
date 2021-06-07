@@ -1,0 +1,15 @@
+variables:
+    ANSIBLE_PACKAGE: ansible==2.9.21
+
+.ansible_depends:
+    before_script:
+        - dnf install -y git
+        - dnf install -y python38
+
+.ansible_install:
+    variables:
+        ANSIBLE_PACKAGE: ansible==2.9.21
+    before_script:
+        # - python3 -m pip install ansible==2.9.21 paramiko ansible-base
+        # - python3 -m pip install ansible-base paramiko
+        - pip3 install $ANSIBLE_PACKAGE

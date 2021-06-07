@@ -1,0 +1,12 @@
+# default:
+#   variables:
+#     IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+#     PATH: '.'
+#     FILE: 'Dockerfile'
+
+.twistlock_scan: &twistlock_scan
+  image:
+    name: registry.access.redhat.com/ubi8/python-38
+    entrypoint: ["/bin/sh", "-c"]
+  script:
+  - echo "twistlock scan initiated"

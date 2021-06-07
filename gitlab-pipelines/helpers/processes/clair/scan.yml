@@ -1,0 +1,10 @@
+# default:
+#   variables:
+#     IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+
+.clair_scan: &clair_scan
+  image:
+    name: registry.access.redhat.com/ubi8/python-38
+    entrypoint: ["/bin/sh", "-c"]
+  script:
+  - echo "clair scan initiated"

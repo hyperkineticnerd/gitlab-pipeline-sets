@@ -1,0 +1,11 @@
+## Run Ansible Playbook
+# default:
+#   variables:
+#     PLAYBOOK: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+
+.ansible_run_playbook: &ansible_run_playbook
+  image:
+    name: nexus.developer.hkn.lab:5001/gitlab-pipelines/ansible
+    entrypoint: ["/bin/sh", "-c"]
+  script:
+    - 'ansible-playbook -i ./environments/standard $PLAYBOOK'

@@ -1,0 +1,5 @@
+.openshift_debug:
+    - whoami
+    - echo $PATH
+    - ls -lha
+    - echo $CI_PROJECT_URL
