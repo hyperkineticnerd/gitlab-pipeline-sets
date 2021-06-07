@@ -1,0 +1,4 @@
+= gitlab-pipeline-sets
+
+This project outlines the organization for a multi-stage pipeline involving Application build, App Container build, container security scanning, and deployment.
+The visible folder is suppose to represent the GitLab Group holding common pipeline code.
