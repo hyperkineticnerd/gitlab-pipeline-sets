@@ -1,0 +1,13 @@
+## Install Galaxy Roles
+# default:
+#   variables:
+#     IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+#     PATH: '.'
+#     FILE: 'Dockerfile'
+
+.ansible_galaxy_install: &ansible_galaxy_install
+  image: 
+    name: nexus.developer.hkn.lab:5001/gitlab-pipelines/ansible
+    entrypoint: ["/bin/sh", "-c"]
+  script:
+    - 'ansible-galaxy install -r roles/requirements.yml --force --roles-path=$PROJECTDIR/roles/'

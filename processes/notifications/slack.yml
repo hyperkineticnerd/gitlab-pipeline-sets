@@ -1,0 +1,29 @@
+# default:
+#   variables:
+#     MESSAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+
+include:
+  - local: /components/openshift/hacks.yml
+  - local: /components/helpers/merge.yml
+  - local: /components/ansible/install.yml
+
+.send_slack_notification: &send_slack_notification
+  image:
+    # name: registry.access.redhat.com/ubi8/python-38
+    name: registry.access.redhat.com/ubi8/ubi
+  variables:
+    DEFAULT_ANSIBLE_INVENTORY: inventories/hosts.ini
+    DEFAULT_ANSIBLE_PLAYBOOK: playbooks/slack.yml
+    ANSIBLE_INVENTORY: ${DEFAULT_ANSIBLE_INVENTORY}
+    PLAYBOOK: ${DEFAULT_ANSIBLE_PLAYBOOK}
+  before_script:
+    - echo $HOME
+    - echo $XDG_RUNTIME_DIR
+    # - !reference [.openshift_debug, before_script]
+    - !reference [.openshift_hacks, before_script]
+    - !reference [.ansible_depends, before_script]
+    - !reference [.git_merge_helpers, before_script]
+    - !reference [.ansible_install, before_script]
+  script:
+    - /usr/local/bin/ansible --version
+    - /usr/local/bin/ansible-playbook -i $ANSIBLE_INVENTORY $PLAYBOOK

@@ -1,0 +1,3 @@
+= helpers "Project"
+
+This folder represents the project that holds tasks and/or steps of a pipeline. This is the location where you implement a chatops pipeline task/step.
