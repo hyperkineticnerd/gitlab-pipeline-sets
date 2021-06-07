@@ -1,0 +1,19 @@
+stages:
+  - trigger-next
+
+variables:
+  TLSVERIFY: 'false'
+
+trigger_container_build:
+    stage: trigger-next
+    inherit:
+      variables: true
+    variables:
+      DOCKERFILE: "Containerfile"
+      MESSAGE: "trigger-next"
+    trigger:
+        strategy: depend
+        include:
+            - project: gitlab-pipelines/pipelines
+              file: /container-build.yml
+
