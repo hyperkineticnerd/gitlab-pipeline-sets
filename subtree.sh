@@ -20,10 +20,10 @@ function subtree_add() {
 }
 
 function subtree_pull() {
-    git subtree pull --prefix=gitlab-pipelines/pipelines subtree_pipelines master
-    git subtree pull --prefix=gitlab-pipelines/helpers subtree_helpers master
-    git subtree pull --prefix=gitlab-pipelines/containers/podman subtree_containers-podman master
-    git subtree pull --prefix=gitlab-pipelines/containers/container-build subtree_containers-container-build master
+    git subtree pull --allow-unrelated-histories --prefix=gitlab-pipelines/pipelines subtree_pipelines master
+    git subtree pull --allow-unrelated-histories --prefix=gitlab-pipelines/helpers subtree_helpers master
+    git subtree pull --allow-unrelated-histories --prefix=gitlab-pipelines/containers/podman subtree_containers-podman master
+    git subtree pull --allow-unrelated-histories --prefix=gitlab-pipelines/containers/container-build subtree_containers-container-build master
 }
 
 function subtree_push() {
