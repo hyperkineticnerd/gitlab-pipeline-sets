@@ -1,0 +1,94 @@
+stages:
+- pull
+- scan
+- notifications
+- retag
+- push
+- deploy
+
+include:
+  - project: gitlab-pipelines/helpers
+    ref: master
+    file:
+      - processes/notifications/slack.yml
+      - processes/clair/scan.yml
+      - processes/podman/pull.yml
+      - processes/podman/push.yml
+      - processes/skopeo/copy.yml
+      - processes/twistlock/scan.yml
+
+pull_image:
+  extends: .podman_pull
+  stage: pull
+  inherit:
+    variables: true
+  # variables:
+  #   IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+
+clair_scanner:
+  extends: .clair_scan
+  stage: scan
+  needs: [pull_image]
+  inherit:
+    variables: true
+  # variables:
+  #   IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+
+twistlock_scan:
+  extends: .twistlock_scan
+  stage: scan
+  needs: [pull_image]
+  inherit:
+    variables: true
+  # variables:
+  #   IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+
+# report_clair_results:
+#   extends: .send_slack_notification
+#   stage: notifications
+#   needs: [clair_scanner]
+#   inherit:
+#     variables: true
+#   variables:
+#     MESSAGE: "Clair Results"
+
+# report_twistlock_results:
+#   extends: .send_slack_notification
+#   stage: notifications
+#   needs: [twistlock_scan]
+#   inherit:
+#     variables: true
+#   variables:
+#     MESSAGE: "Twistlock Results"
+
+retag_container:
+  extends: .skopeo_copy
+  stage: retag
+  inherit:
+    variables: true
+  # variables:
+  #   SRC_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+  #   DEST_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+
+push_to_quay:
+  extends: .podman_push
+  stage: push
+  inherit:
+    variables: true
+  # variables:
+  #   IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+
+# trigger_deployment_dev:
+#   stage: deploy
+#   inherit:
+#     variables: true
+#   variables:
+#     ENVIRONMENT: dev
+#     CLUSTER: ocp4.example.com
+#     IMAGE: something
+#   trigger:
+#     strategy: depend
+#     include:
+#       - project: gitlab-pipeline/pipelines
+#         ref: master
+#         file: /environment-deployment/.gitlab-ci.yml
