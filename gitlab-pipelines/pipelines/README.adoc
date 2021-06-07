@@ -1,0 +1,3 @@
+= pipelines "Project"
+
+This folder represents the following pipeline segments: Application building, Container building, Container DevSecOps, and Deployment to an Environment.

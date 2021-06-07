@@ -1,0 +1,61 @@
+stages:
+- build
+- build-push
+- notifications
+- artifacts
+- artifacts-notifications
+- security
+
+include:
+  - project: gitlab-pipelines/helpers
+    file:
+      - processes/buildah/bud.yml
+      - processes/podman/push.yml
+      - processes/notifications/slack.yml
+
+clean_varlibcontainers_pvc:
+  stage: .pre
+  image:
+    name: quay.io/podman/stable
+  inherit:
+    variables: true
+  variables:
+    STORAGE_DRIVER: vfs
+  script:
+    - podman --storage-driver=$STORAGE_DRIVER rm --all --force
+    - podman --storage-driver=$STORAGE_DRIVER rmi --all --force
+
+container_build_dockerfile:
+  extends: .buildah_bud
+  stage: build
+  inherit:
+    variables: true
+
+container_build_push_image:
+  extends: .podman_push
+  stage: build-push
+  inherit:
+    variables: true
+  # needs: [container_build_dockerfile]
+
+# container_build_notification:
+#   extends: .send_slack_notification
+#   stage: notifications
+#   inherit:
+#     variables: true
+#   variables:
+#     MESSAGE: "Container Build Complete"
+
+trigger_container_security:
+  stage: security
+  inherit:
+    variables: true
+  variables:
+    TLSVERIFY: 'false'
+    # SOURCE_CONTAINER_IMAGE: quay.apps.ocp4.example.com/untrusted/$CI_PROJECT_NAME:untrusted-$CI_COMMIT_SHORT_SHA
+    # DEST_CONTAINER_IMAGE: quay.apps.ocp4.example.com/trusted/$CI_PROJECT_NAME:untrusted-$CI_COMMIT_SHORT_SHA
+  trigger:
+    strategy: depend
+    include:
+      - project: gitlab-pipelines/pipelines
+        file: /container-security.yml
