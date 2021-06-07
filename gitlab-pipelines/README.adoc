@@ -1,0 +1,11 @@
+= gitlab-pipelines
+
+This "toplevel" folder represents the gitlab group/namespace for common pipelines. The folders within are gitlab projects holding specific.
+
+== GitLab Projects
+
+The following folders represent projects:
+
+* The `helpers` project holds the pipeline tasks/steps.
+* The `pipeline-containers` project holds custom containers for executing the pipelines.
+* The `pipelines` project holds the called upon sub/child pipelines and are visible in GitLab as part of the Multi-project pipeline feature.
