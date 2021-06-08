@@ -1,0 +1,18 @@
+stages:
+  - trigger-next
+
+variables:
+  TLSVERIFY: 'false'
+  DOCKERFILE: "Containerfile"
+  UNTRUSTED_IMAGE_TARGET: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-untrusted
+  TRUSTED_IMAGE_TARGET: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-trusted
+
+trigger_container_build:
+    stage: trigger-next
+    inherit:
+      variables: true
+    trigger:
+        strategy: depend
+        include:
+            - project: gitlab-pipelines/pipelines
+              file: /container-build.yml
