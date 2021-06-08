@@ -8,7 +8,7 @@ stages:
 
 variables:
   TLSVERIFY:
-    value: 'true'
+    value: "false"
     description: "TLS Certificate Verification. If there are x509 errors, try using 'false', but it's Best Practice to fix your certificates!"
   UNTRUSTED_IMAGE_REGISTRY:
     value: "$CI_REGISTRY_IMAGE:untrusted-$CI_COMMIT_REF_SLUG"
@@ -42,7 +42,7 @@ container_build_dockerfile:
   inherit:
     variables: true
   variables:
-    TARGET: $UNTRUSTED_IMAGE_REGISTRY
+    TARGET: "$CI_REGISTRY_IMAGE:untrusted-$CI_COMMIT_REF_SLUG"
 
 container_build_push_image:
   extends: .podman_push
@@ -51,7 +51,7 @@ container_build_push_image:
   inherit:
     variables: true
   variables:
-    TARGET: $UNTRUSTED_IMAGE_REGISTRY
+    TARGET: "$CI_REGISTRY_IMAGE:untrusted-$CI_COMMIT_REF_SLUG"
 
 # container_build_notification:
 #   extends: .send_slack_notification
@@ -65,8 +65,8 @@ trigger_container_security:
   stage: security
   inherit:
     variables: true
-  variables:
-    TLSVERIFY: 'false'
+  # variables:
+  #   TLSVERIFY: 'false'
     # SOURCE_CONTAINER_IMAGE: quay.apps.ocp4.example.com/untrusted/$CI_PROJECT_NAME:untrusted-$CI_COMMIT_SHORT_SHA
     # DEST_CONTAINER_IMAGE: quay.apps.ocp4.example.com/trusted/$CI_PROJECT_NAME:untrusted-$CI_COMMIT_SHORT_SHA
   trigger:
