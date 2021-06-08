@@ -1,4 +1,5 @@
 stages:
+  - notifications
   - trigger-next
 
 variables:
