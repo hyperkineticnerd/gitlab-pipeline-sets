@@ -21,10 +21,10 @@ include:
     REPO_PATH: '/gitlab-pipelines/helpers'
     HELPER_REPO_URL: 'https://gitlab-ci-token:${CI_JOB_TOKEN}@${SERVER_URI}${REPO_PATH}'
   before_script:
-    - echo $HELPER_REPO_URL
-    - echo ${CI_JOB_TOKEN}
-    - echo ${SERVER_URI}
-    - echo ${REPO_PATH}
+    # - echo $HELPER_REPO_URL
+    # - echo ${CI_JOB_TOKEN}
+    # - echo ${SERVER_URI}
+    # - echo ${REPO_PATH}
     # - echo $HOME
     # - echo $XDG_RUNTIME_DIR
     # - !reference [.openshift_debug, before_script]
