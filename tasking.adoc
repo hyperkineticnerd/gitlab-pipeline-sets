@@ -1,0 +1,5 @@
+= tasking
+
+* Rootless containers in OpenShift?
+* dynamic pvc per project?
+* import public images?

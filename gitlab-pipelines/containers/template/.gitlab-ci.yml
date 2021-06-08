@@ -1,0 +1,29 @@
+stages:
+  - trigger-setup
+  - trigger-child-pipeline
+
+variables:
+  TLSVERIFY: 'false'
+  DOCKERFILE: "Containerfile"
+  UNTRUSTED_IMAGE_TARGET: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-untrusted
+  TRUSTED_IMAGE_TARGET: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-trusted
+
+var_save:
+  stage: trigger-setup
+  script:
+    - echo "TLSVERIFY=$TLSVERIFY" >> pipeline.env
+    - echo "UNTRUSTED_IMAGE_TARGET=" >> pipeline.env
+    - echo "TRUSTED_IMAGE_TARGET=" >> pipeline.env 
+  artifacts:
+    reports:
+      dotenv: pipeline.env
+
+trigger_container_build:
+    stage: trigger-child-pipeline
+    inherit:
+      variables: true
+    trigger:
+        strategy: depend
+        include:
+            - project: gitlab-pipelines/pipelines
+              file: /container-build.yml
