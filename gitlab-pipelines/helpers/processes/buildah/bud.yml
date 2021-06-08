@@ -1,8 +1,3 @@
-# variables:
-#   TARGET: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
-#   CONTEXT: '.'
-#   DOCKERFILE: 'Dockerfile'
-
 .buildah_bud: &buildah_bud
   image:
     name: quay.io/buildah/stable

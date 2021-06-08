@@ -6,6 +6,17 @@ stages:
 - artifacts-notifications
 - security
 
+variables:
+  TLSVERIFY:
+    value: 'true'
+    description: "TLS Certificate Verification. If there are x509 errors, try using 'false', but it's Best Practice to fix your certificates!"
+  UNTRUSTED_IMAGE_REGISTRY:
+    value: '$CI_REGISTRY_IMAGE:untrusted-$CI_COMMIT_REF_SLUG'
+    description: "The Untrusted Container Image Location"
+  TRUSTED_IMAGE_REGISTRY:
+    value: '$CI_REGISTRY_IMAGE:trusted-$CI_COMMIT_REF_SLUG'
+    description: "The Trusted Container Image Location."
+
 include:
   - project: gitlab-pipelines/helpers
     file:
@@ -31,7 +42,7 @@ container_build_dockerfile:
   inherit:
     variables: true
   variables:
-    TARGET: '$CI_REGISTRY_IMAGE:untrusted-$CI_COMMIT_REF_SLUG'
+    TARGET: $UNTRUSTED_IMAGE_REGISTRY
 
 container_build_push_image:
   extends: .podman_push
@@ -40,7 +51,7 @@ container_build_push_image:
   inherit:
     variables: true
   variables:
-    TARGET: '$CI_REGISTRY_IMAGE:untrusted-$CI_COMMIT_REF_SLUG'
+    TARGET: $UNTRUSTED_IMAGE_REGISTRY
 
 # container_build_notification:
 #   extends: .send_slack_notification

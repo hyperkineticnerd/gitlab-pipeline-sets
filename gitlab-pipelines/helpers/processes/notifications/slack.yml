@@ -9,7 +9,6 @@ include:
 
 .send_slack_notification: &send_slack_notification
   image:
-    # name: registry.access.redhat.com/ubi8/python-38
     name: registry.access.redhat.com/ubi8/ubi
   variables:
     DEFAULT_ANSIBLE_INVENTORY: inventories/hosts.ini

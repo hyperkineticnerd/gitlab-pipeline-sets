@@ -2,7 +2,6 @@
 .skopeo_copy: &skopeo_copy
   image:
     name: quay.io/skopeo/stable
-  #   # entrypoint: ["/bin/sh", "-c"]
   variables:
     TLSVERIFY: 'true'
     SRC_IMAGE: 'docker://$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG'

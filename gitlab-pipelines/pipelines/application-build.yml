@@ -1,7 +1,4 @@
 stages:
-- compile
-- unit-tests
-- coverage
 - static-code-analysis
 - notifications
 - container-build
@@ -11,6 +8,7 @@ include:
     file:
       - processes/notifications/slack.yml
       - processes/sonarqube/scan.yml
+      - processes/python/build.yml
 
 sonarqube_static_code_analysis:
   extends: .sonarqube

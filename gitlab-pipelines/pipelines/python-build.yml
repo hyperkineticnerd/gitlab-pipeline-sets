@@ -1,0 +1,36 @@
+stages:
+- compile
+- lint
+- unit-tests
+- coverage
+- notifications
+- static-code-analysis
+
+include:
+  - project: gitlab-pipelines/helpers
+    file:
+      - processes/notifications/slack.yml
+      - processes/sonarqube/scan.yml
+      - processes/python/build.yml
+
+python_lint:
+  extends: .python_lint
+  stage: lint
+
+python_unit_tests:
+  extends: .python_tox
+  stage: unit-tests
+
+python_coverage:
+  extends: .python_coverage
+  stage: coverage
+
+trigger_sonarqube_pipeline:
+  stage: static-code-analysis
+  inherit:
+    variables: true
+  trigger:
+    strategy: depend
+    include:
+      - project: gitlab-pipelines/pipelines
+        file: /application-build.yml
