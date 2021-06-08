@@ -1,11 +1,10 @@
-FROM registry.access.redhat.io/ubi8/ubi
-LABEL maintainer="Sean Nelson <snelson@redhat.com>"
+FROM registry.access.redhat.com/ubi8/python-38
 
 USER 0
-
-RUN dnf install -y git && \
-    dnf install -y python38 && \
-    pip3 install $ANSIBLE_PACKAGE && \
-    dnf clean all
+RUN echo "enabled=0" >> /etc/yum/pluginconf.d/subscripton-manager.conf
+RUN dnf install -y git
+RUN pip install ansible==2.9
 
 USER 1001
+# ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["/bin/sh", "-c"]
