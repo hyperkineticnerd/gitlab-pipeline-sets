@@ -6,16 +6,21 @@ stages:
 - artifacts-notifications
 - security
 
+# variables:
+#   TLSVERIFY:
+#     value: "false"
+#     description: "TLS Certificate Verification. If there are x509 errors, try using 'false', but it's Best Practice to fix your certificates!"
+#   UNTRUSTED_IMAGE_TARGET:
+#     value: "$CI_REGISTRY_IMAGE:untrusted-$CI_COMMIT_REF_SLUG"
+#     description: "The Untrusted Container Image Location"
+#   TRUSTED_IMAGE_TARGET:
+#     value: "$CI_REGISTRY_IMAGE:trusted-$CI_COMMIT_REF_SLUG"
+#     description: "The Trusted Container Image Location."
+
 variables:
-  TLSVERIFY:
-    value: "false"
-    description: "TLS Certificate Verification. If there are x509 errors, try using 'false', but it's Best Practice to fix your certificates!"
-  UNTRUSTED_IMAGE_REGISTRY:
-    value: "$CI_REGISTRY_IMAGE:untrusted-$CI_COMMIT_REF_SLUG"
-    description: "The Untrusted Container Image Location"
-  TRUSTED_IMAGE_REGISTRY:
-    value: "$CI_REGISTRY_IMAGE:trusted-$CI_COMMIT_REF_SLUG"
-    description: "The Trusted Container Image Location."
+  TLSVERIFY: "false"
+  UNTRUSTED_IMAGE_TARGET: "$CI_REGISTRY_IMAGE:untrusted-$CI_COMMIT_REF_SLUG"
+  TRUSTED_IMAGE_TARGET: "$CI_REGISTRY_IMAGE:trusted-$CI_COMMIT_REF_SLUG"
 
 include:
   - project: gitlab-pipelines/helpers
@@ -67,8 +72,8 @@ trigger_container_security:
     variables: true
   # variables:
   #   TLSVERIFY: 'false'
-    # SOURCE_CONTAINER_IMAGE: quay.apps.ocp4.example.com/untrusted/$CI_PROJECT_NAME:untrusted-$CI_COMMIT_SHORT_SHA
-    # DEST_CONTAINER_IMAGE: quay.apps.ocp4.example.com/trusted/$CI_PROJECT_NAME:untrusted-$CI_COMMIT_SHORT_SHA
+  #   SOURCE_CONTAINER_IMAGE: quay.apps.ocp4.example.com/untrusted/$CI_PROJECT_NAME:untrusted-$CI_COMMIT_SHORT_SHA
+  #   DEST_CONTAINER_IMAGE: quay.apps.ocp4.example.com/trusted/$CI_PROJECT_NAME:untrusted-$CI_COMMIT_SHORT_SHA
   trigger:
     strategy: depend
     include:
