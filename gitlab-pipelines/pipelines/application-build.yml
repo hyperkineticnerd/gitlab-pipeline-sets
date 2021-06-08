@@ -11,7 +11,7 @@ include:
       - processes/python/build.yml
 
 sonarqube_static_code_analysis:
-  extends: .sonarqube
+  extends: .sonarqube_scan
   stage: static-code-analysis
 
 trigger_build_container:
