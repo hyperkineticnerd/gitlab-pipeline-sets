@@ -6,6 +6,17 @@ stages:
 - push
 - deploy
 
+variables:
+  TLSVERIFY:
+    value: 'true'
+    description: "TLS Certificate Verification. If there are x509 errors, try using 'false', but it's Best Practice to fix your certificates!"
+  UNTRUSTED_IMAGE_TARGET:
+    value: $CI_REGISTRY_IMAGE:untrusted-$CI_COMMIT_REF_SLUG
+    description: "The Untrusted Container Image Location"
+  TRUSTED_IMAGE_TARGET:
+    value: $CI_REGISTRY_IMAGE:trusted-$CI_COMMIT_REF_SLUG
+    description: "The Trusted Container Image Location."
+
 include:
   - project: gitlab-pipelines/helpers
     ref: master
