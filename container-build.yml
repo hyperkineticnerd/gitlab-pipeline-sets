@@ -6,6 +6,18 @@ stages:
 - artifacts-notifications
 - security
 
+# default:
+#   variables:
+#     TLSVERIFY:
+#       value: 'true'
+#       description: "TLS Certificate Verification. If there are x509 errors, try using 'false', but it's Best Practice to fix your certificates!"
+#     UNTRUSTED_IMAGE_TARGET:
+#       value: $CI_REGISTRY_IMAGE:untrusted-$CI_COMMIT_REF_SLUG
+#       description: "The Untrusted Container Image Location"
+#     TRUSTED_IMAGE_TARGET:
+#       value: $CI_REGISTRY_IMAGE:trusted-$CI_COMMIT_REF_SLUG
+#       description: "The Trusted Container Image Location."
+
 include:
   - project: gitlab-pipelines/helpers
     file:
@@ -31,7 +43,7 @@ container_build_dockerfile:
   inherit:
     variables: true
   variables:
-    TARGET: '$CI_REGISTRY_IMAGE:untrusted-$CI_COMMIT_REF_SLUG'
+    TARGET: $UNTRUSTED_IMAGE_TARGET
 
 container_build_push_image:
   extends: .podman_push
@@ -40,24 +52,26 @@ container_build_push_image:
   inherit:
     variables: true
   variables:
-    TARGET: '$CI_REGISTRY_IMAGE:untrusted-$CI_COMMIT_REF_SLUG'
+    TARGET: $UNTRUSTED_IMAGE_TARGET
 
-# container_build_notification:
-#   extends: .send_slack_notification
-#   stage: notifications
-#   inherit:
-#     variables: true
-#   variables:
-#     MESSAGE: "Container Build Complete"
+container_build_notification:
+  extends: .send_slack_notification
+  stage: notifications
+  inherit:
+    variables: true
+  variables:
+    MESSAGE: "Container Build Complete"
 
 trigger_container_security:
   stage: security
   inherit:
     variables: true
   variables:
-    TLSVERIFY: 'false'
-    # SOURCE_CONTAINER_IMAGE: quay.apps.ocp4.example.com/untrusted/$CI_PROJECT_NAME:untrusted-$CI_COMMIT_SHORT_SHA
-    # DEST_CONTAINER_IMAGE: quay.apps.ocp4.example.com/trusted/$CI_PROJECT_NAME:untrusted-$CI_COMMIT_SHORT_SHA
+    TLSVERIFY: $TLSVERIFY
+    UNTRUSTED_IMAGE_TARGET: $UNTRUSTED_IMAGE_TARGET
+    TRUSTED_IMAGE_TARGET: $TRUSTED_IMAGE_TARGET
+  #   SOURCE_CONTAINER_IMAGE: quay.apps.ocp4.example.com/untrusted/$CI_PROJECT_NAME:untrusted-$CI_COMMIT_SHORT_SHA
+  #   DEST_CONTAINER_IMAGE: quay.apps.ocp4.example.com/trusted/$CI_PROJECT_NAME:trusted-$CI_COMMIT_SHORT_SHA
   trigger:
     strategy: depend
     include:

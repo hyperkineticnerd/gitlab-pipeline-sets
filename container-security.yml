@@ -6,6 +6,18 @@ stages:
 - push
 - deploy
 
+# default:
+#   variables:
+#     TLSVERIFY:
+#       value: 'true'
+#       description: "TLS Certificate Verification. If there are x509 errors, try using 'false', but it's Best Practice to fix your certificates!"
+#     UNTRUSTED_IMAGE_TARGET:
+#       value: $CI_REGISTRY_IMAGE:untrusted-$CI_COMMIT_REF_SLUG
+#       description: "The Untrusted Container Image Location"
+#     TRUSTED_IMAGE_TARGET:
+#       value: $CI_REGISTRY_IMAGE:trusted-$CI_COMMIT_REF_SLUG
+#       description: "The Trusted Container Image Location."
+
 include:
   - project: gitlab-pipelines/helpers
     ref: master
@@ -23,7 +35,7 @@ pull_image:
   inherit:
     variables: true
   variables:
-    TARGET: $CI_REGISTRY_IMAGE:untrusted-$CI_COMMIT_REF_SLUG
+    TARGET: $UNTRUSTED_IMAGE_TARGET
 
 clair_scanner:
   extends: .clair_scan
@@ -32,7 +44,7 @@ clair_scanner:
   inherit:
     variables: true
   variables:
-    TARGET: $CI_REGISTRY_IMAGE:untrusted-$CI_COMMIT_REF_SLUG
+    TARGET: $UNTRUSTED_IMAGE_TARGET
 
 twistlock_scan:
   extends: .twistlock_scan
@@ -41,7 +53,7 @@ twistlock_scan:
   inherit:
     variables: true
   variables:
-    TARGET: $CI_REGISTRY_IMAGE:untrusted-$CI_COMMIT_REF_SLUG
+    TARGET: $UNTRUSTED_IMAGE_TARGET
 
 # report_clair_results:
 #   extends: .send_slack_notification
@@ -67,8 +79,8 @@ retag_and_push_container:
   inherit:
     variables: true
   variables:
-    SRC_IMAGE: docker://$CI_REGISTRY_IMAGE:untrusted-$CI_COMMIT_REF_SLUG
-    DEST_IMAGE: docker://$CI_REGISTRY_IMAGE:trusted-$CI_COMMIT_REF_SLUG
+    SRC_IMAGE: docker://$UNTRUSTED_IMAGE_TARGET
+    DEST_IMAGE: docker://$TRUSTED_IMAGE_TARGET
 
 # push_to_quay:
 #   extends: .podman_push
@@ -76,7 +88,7 @@ retag_and_push_container:
 #   inherit:
 #     variables: true
 #   variables:
-#     TARGET: $CI_REGISTRY_IMAGE:trusted-$CI_COMMIT_REF_SLUG
+#     TARGET: $TRUSTED_IMAGE_TARGET
 
 # trigger_deployment_dev:
 #   stage: deploy
