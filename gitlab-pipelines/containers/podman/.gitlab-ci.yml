@@ -19,14 +19,14 @@ container_build_notification:
   inherit:
     variables: true
   variables:
-    MESSAGE: "Container Build Complete"
+    MESSAGE: "Container Build Started"
 
-# trigger_container_build:
-#     stage: trigger-next
-#     inherit:
-#       variables: true
-#     trigger:
-#         strategy: depend
-#         include:
-#             - project: gitlab-pipelines/pipelines
-#               file: /container-build.yml
+trigger_container_build:
+    stage: trigger-next
+    inherit:
+      variables: true
+    trigger:
+        strategy: depend
+        include:
+            - project: gitlab-pipelines/pipelines
+              file: /container-build.yml

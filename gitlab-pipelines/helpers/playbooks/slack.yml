@@ -3,4 +3,4 @@
   tasks:
     - name: Test
       debug:
-        msg: "test"
+        msg: "{{ lookup(\"env\", \"MESSAGE\") }}"
