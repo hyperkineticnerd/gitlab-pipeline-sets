@@ -1,0 +1,5 @@
+.sonarqube_scan: &sonarqube_scan
+  image:
+    name: registry.access.redhat.com/ubi8/ubi
+  script:
+  - echo "sonarqube static code analysis initiated"

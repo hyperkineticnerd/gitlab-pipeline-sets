@@ -2,7 +2,6 @@
 .skopeo_copy: &skopeo_copy
   image:
     name: quay.io/skopeo/stable
-  #   # entrypoint: ["/bin/sh", "-c"]
   variables:
     TLSVERIFY: 'true'
     SRC_IMAGE: 'docker://$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG'
@@ -12,7 +11,7 @@
     DEST_TLSVERIFY: '$TLSVERIFY'
     DEST_CREDS: '$CI_REGISTRY_USER:$CI_REGISTRY_PASSWORD'
     CMD_OPTS: ''
-  before_script:
-    - echo "skopeo copy $SRC_IMAGE $DEST_IMAGE"
+  # before_script:
+  #   - echo "skopeo copy $SRC_IMAGE $DEST_IMAGE"
   script:
     - skopeo copy $CMD_OPTS --src-tls-verify=$TLSVERIFY --src-creds $SRC_CREDS $SRC_IMAGE --dest-tls-verify=$TLSVERIFY --dest-creds $DEST_CREDS $DEST_IMAGE
