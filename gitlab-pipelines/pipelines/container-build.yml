@@ -17,10 +17,10 @@ stages:
 #     value: "$CI_REGISTRY_IMAGE:trusted-$CI_COMMIT_REF_SLUG"
 #     description: "The Trusted Container Image Location."
 
-variables:
-  TLSVERIFY: "false"
-  UNTRUSTED_IMAGE_TARGET: $CI_REGISTRY_IMAGE:untrusted-$CI_COMMIT_REF_SLUG
-  TRUSTED_IMAGE_TARGET: $CI_REGISTRY_IMAGE:trusted-$CI_COMMIT_REF_SLUG
+# variables:
+#   TLSVERIFY: "false"
+#   UNTRUSTED_IMAGE_TARGET: $CI_REGISTRY_IMAGE:untrusted-$CI_COMMIT_REF_SLUG
+#   TRUSTED_IMAGE_TARGET: $CI_REGISTRY_IMAGE:trusted-$CI_COMMIT_REF_SLUG
 
 include:
   - project: gitlab-pipelines/helpers
@@ -47,7 +47,7 @@ container_build_dockerfile:
   inherit:
     variables: true
   variables:
-    TARGET: $CI_REGISTRY_IMAGE:untrusted-$CI_COMMIT_REF_SLUG
+    TARGET: $UNTRUSTED_IMAGE_TARGET
 
 container_build_push_image:
   extends: .podman_push
@@ -56,7 +56,7 @@ container_build_push_image:
   inherit:
     variables: true
   variables:
-    TARGET: $CI_REGISTRY_IMAGE:untrusted-$CI_COMMIT_REF_SLUG
+    TARGET: $UNTRUSTED_IMAGE_TARGET
 
 # container_build_notification:
 #   extends: .send_slack_notification
