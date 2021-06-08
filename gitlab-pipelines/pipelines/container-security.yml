@@ -55,23 +55,23 @@ twistlock_scan:
   variables:
     TARGET: $UNTRUSTED_IMAGE_TARGET
 
-# report_clair_results:
-#   extends: .send_slack_notification
-#   stage: notifications
-#   needs: [clair_scanner]
-#   inherit:
-#     variables: true
-#   variables:
-#     MESSAGE: "Clair Results"
+report_clair_results:
+  extends: .send_slack_notification
+  stage: notifications
+  needs: [clair_scanner]
+  inherit:
+    variables: true
+  variables:
+    MESSAGE: "Clair Results"
 
-# report_twistlock_results:
-#   extends: .send_slack_notification
-#   stage: notifications
-#   needs: [twistlock_scan]
-#   inherit:
-#     variables: true
-#   variables:
-#     MESSAGE: "Twistlock Results"
+report_twistlock_results:
+  extends: .send_slack_notification
+  stage: notifications
+  needs: [twistlock_scan]
+  inherit:
+    variables: true
+  variables:
+    MESSAGE: "Twistlock Results"
 
 retag_and_push_container:
   extends: .skopeo_copy
