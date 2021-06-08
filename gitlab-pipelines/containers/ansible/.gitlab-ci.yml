@@ -1,18 +1,18 @@
+image: registry.access.redhat.com/ubi8/python-38
+
 stages:
-  - trigger-next
+  - build
+  - push
 
 variables:
-  TLSVERIFY: 'false'
-  DOCKERFILE: "Containerfile"
-  UNTRUSTED_IMAGE_TARGET: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-untrusted
-  TRUSTED_IMAGE_TARGET: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-trusted
+  TARGET: nexus.developer.hkn.lab:5001/gitlab-pipelines/ansible
 
-trigger_container_build:
-    stage: trigger-next
-    inherit:
-      variables: true
-    trigger:
-        strategy: depend
-        include:
-            - project: gitlab-pipelines/pipelines
-              file: /container-build.yml
+build_container:
+  stage: build
+  script:
+    - buildah bud -t $TARGET .
+
+push_container:
+  stage: push
+  script:
+    - buildah push $TARGET
