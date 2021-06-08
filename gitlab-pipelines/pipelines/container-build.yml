@@ -69,11 +69,11 @@ container_build_push_image:
 trigger_container_security:
   stage: security
   inherit:
-    variables: true
-  variables:
-    TLSVERIFY: $TLSVERIFY
-    UNTRUSTED_IMAGE_TARGET: $UNTRUSTED_IMAGE_TARGET
-    TRUSTED_IMAGE_TARGET: $TRUSTED_IMAGE_TARGET
+    variables: [TLSVERIFY, UNTRUSTED_IMAGE_TARGET, TRUSTED_IMAGE_TARGET]
+  # variables:
+  #   TLSVERIFY: $TLSVERIFY
+  #   UNTRUSTED_IMAGE_TARGET: $UNTRUSTED_IMAGE_TARGET
+  #   TRUSTED_IMAGE_TARGET: $TRUSTED_IMAGE_TARGET
   #   SOURCE_CONTAINER_IMAGE: quay.apps.ocp4.example.com/untrusted/$CI_PROJECT_NAME:untrusted-$CI_COMMIT_SHORT_SHA
   #   DEST_CONTAINER_IMAGE: quay.apps.ocp4.example.com/trusted/$CI_PROJECT_NAME:untrusted-$CI_COMMIT_SHORT_SHA
   trigger:
