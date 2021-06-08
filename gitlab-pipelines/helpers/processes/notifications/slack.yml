@@ -16,6 +16,7 @@ include:
     ANSIBLE_INVENTORY: ${DEFAULT_ANSIBLE_INVENTORY}
     PLAYBOOK: ${DEFAULT_ANSIBLE_PLAYBOOK}
   before_script:
+    - echo $HELPER_REPO_URL
     # - echo $HOME
     # - echo $XDG_RUNTIME_DIR
     # - !reference [.openshift_debug, before_script]
