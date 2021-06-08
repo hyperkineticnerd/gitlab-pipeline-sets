@@ -16,4 +16,3 @@ trigger_container_build:
         include:
             - project: gitlab-pipelines/pipelines
               file: /container-build.yml
-
