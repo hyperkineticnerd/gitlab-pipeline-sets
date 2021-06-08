@@ -7,12 +7,12 @@
     TLSVERIFY: 'true'
     TARGET: '$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG'
     CREDENTIALS: '$CI_REGISTRY_USER:$CI_REGISTRY_PASSWORD'
-  before_script:
-    - whoami
-    - echo $HOME
-    - echo $XDG_RUNTIME_DIR
-    - podman --storage-driver=$STORAGE_DRIVER version
-    - echo $CREDENTIALS
-    - echo $TARGET
+  # before_script:
+  #   - whoami
+  #   - echo $HOME
+  #   - echo $XDG_RUNTIME_DIR
+  #   - podman --storage-driver=$STORAGE_DRIVER version
+  #   - echo $CREDENTIALS
+  #   - echo $TARGET
   script:
     - podman --storage-driver=$STORAGE_DRIVER pull --tls-verify=$TLSVERIFY --creds $CREDENTIALS $TARGET
