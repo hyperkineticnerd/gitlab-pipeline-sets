@@ -27,9 +27,9 @@ function subtree_pull() {
 }
 
 function subtree_push() {
-    git subtree push --prefix gitlab-pipelines/pipelines pipelines master
-    git subtree push --prefix gitlab-pipelines/helpers helpers master
-    git subtree push --prefix gitlab-pipelines/containers/podman containers-podman master
+    git subtree push --prefix gitlab-pipelines/pipelines subtree_pipelines master
+    git subtree push --prefix gitlab-pipelines/helpers subtree_helpers master
+    git subtree push --prefix gitlab-pipelines/containers/podman subtree_containers-podman master
     git subtree push --prefix=gitlab-pipelines/containers/container-build subtree_containers-container-build master
 }
 
