@@ -54,13 +54,13 @@ container_build_push_image:
   variables:
     TARGET: $UNTRUSTED_IMAGE_TARGET
 
-# container_build_notification:
-#   extends: .send_slack_notification
-#   stage: notifications
-#   inherit:
-#     variables: true
-#   variables:
-#     MESSAGE: "Container Build Complete"
+container_build_notification:
+  extends: .send_slack_notification
+  stage: notifications
+  inherit:
+    variables: true
+  variables:
+    MESSAGE: "Container Build Complete"
 
 trigger_container_security:
   stage: security
