@@ -3,14 +3,12 @@ stages:
 
 variables:
   TLSVERIFY: 'false'
+  DOCKERFILE: "Containerfile"
 
 trigger_container_build:
     stage: trigger-next
     inherit:
       variables: true
-    variables:
-      DOCKERFILE: "Containerfile"
-      MESSAGE: "trigger-next"
     trigger:
         strategy: depend
         include:
