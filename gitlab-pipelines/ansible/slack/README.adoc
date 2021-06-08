@@ -1,0 +1,3 @@
+= Ansible for Slack Interactions
+
+This repo is ansible automation to send notifications to Slack or other

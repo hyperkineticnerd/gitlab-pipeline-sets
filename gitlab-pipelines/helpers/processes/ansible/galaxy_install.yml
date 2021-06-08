@@ -9,5 +9,7 @@
   image: 
     name: nexus.developer.hkn.lab:5001/gitlab-pipelines/ansible
     entrypoint: ["/bin/sh", "-c"]
+  inherit:
+    variables: true
   script:
     - 'ansible-galaxy install -r roles/requirements.yml --force --roles-path=$PROJECTDIR/roles/'

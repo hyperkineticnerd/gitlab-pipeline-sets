@@ -1,18 +1,23 @@
 .python_coverage: &python_coverage
-  image: python-38
-  # variables:
+  image:
+    - name: python-38
+  inherit:
+    variables: true
   script:
     - python coverage command
 
 .python_lint: &python_lint
   image:
     - name: python-38
-  # variables:
+  inherit:
+    variables: true
   script:
     - pylint
 
 .python_tox: &python_tox
   image:
     - name: python-38
+  inherit:
+    variables: true
   script:
     - tox .

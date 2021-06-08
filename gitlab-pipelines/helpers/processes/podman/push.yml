@@ -2,6 +2,8 @@
 .podman_push: &podman_push
   image:
     name: quay.io/podman/stable
+  inherit:
+    variables: true
   variables:
     STORAGE_DRIVER: vfs
     TLSVERIFY: 'true'

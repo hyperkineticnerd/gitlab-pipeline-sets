@@ -1,6 +1,8 @@
 .buildah_bud: &buildah_bud
   image:
     name: quay.io/buildah/stable
+  inherit:
+    variables: true
   variables:
     BUILDAH_ISOLATION: chroot
     STORAGE_DRIVER: vfs
