@@ -22,8 +22,8 @@ pull_image:
   stage: pull
   inherit:
     variables: true
-  # variables:
-  #   IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+  variables:
+    TARGET: $CI_REGISTRY_IMAGE:untrusted-$CI_COMMIT_REF_SLUG
 
 clair_scanner:
   extends: .clair_scan
@@ -31,8 +31,8 @@ clair_scanner:
   needs: [pull_image]
   inherit:
     variables: true
-  # variables:
-  #   IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+  variables:
+    TARGET: $CI_REGISTRY_IMAGE:untrusted-$CI_COMMIT_REF_SLUG
 
 twistlock_scan:
   extends: .twistlock_scan
@@ -40,8 +40,8 @@ twistlock_scan:
   needs: [pull_image]
   inherit:
     variables: true
-  # variables:
-  #   IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+  variables:
+    TARGET: $CI_REGISTRY_IMAGE:untrusted-$CI_COMMIT_REF_SLUG
 
 # report_clair_results:
 #   extends: .send_slack_notification
@@ -61,22 +61,22 @@ twistlock_scan:
 #   variables:
 #     MESSAGE: "Twistlock Results"
 
-retag_container:
+retag_and_push_container:
   extends: .skopeo_copy
   stage: retag
   inherit:
     variables: true
-  # variables:
-  #   SRC_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
-  #   DEST_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+  variables:
+    SRC_IMAGE: docker://$CI_REGISTRY_IMAGE:untrusted-$CI_COMMIT_REF_SLUG
+    DEST_IMAGE: docker://$CI_REGISTRY_IMAGE:trusted-$CI_COMMIT_REF_SLUG
 
-push_to_quay:
-  extends: .podman_push
-  stage: push
-  inherit:
-    variables: true
-  # variables:
-  #   IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+# push_to_quay:
+#   extends: .podman_push
+#   stage: push
+#   inherit:
+#     variables: true
+#   variables:
+#     TARGET: $CI_REGISTRY_IMAGE:trusted-$CI_COMMIT_REF_SLUG
 
 # trigger_deployment_dev:
 #   stage: deploy

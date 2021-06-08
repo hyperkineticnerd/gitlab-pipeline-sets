@@ -30,13 +30,17 @@ container_build_dockerfile:
   stage: build
   inherit:
     variables: true
+  variables:
+    TARGET: '$CI_REGISTRY_IMAGE:untrusted-$CI_COMMIT_REF_SLUG'
 
 container_build_push_image:
   extends: .podman_push
   stage: build-push
+  # needs: [container_build_dockerfile]
   inherit:
     variables: true
-  # needs: [container_build_dockerfile]
+  variables:
+    TARGET: '$CI_REGISTRY_IMAGE:untrusted-$CI_COMMIT_REF_SLUG'
 
 # container_build_notification:
 #   extends: .send_slack_notification
