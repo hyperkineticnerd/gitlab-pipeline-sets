@@ -18,7 +18,9 @@ include:
   before_script:
     # - echo $HOME
     # - echo $XDG_RUNTIME_DIR
-    - /usr/local/bin/ansible --version
+    - ls /usr/local/bin
+    - ls /usr/bin
+    # - /usr/local/bin/ansible --version
     # - !reference [.openshift_debug, before_script]
     # - !reference [.openshift_hacks, before_script]
     # - !reference [.ansible_depends, before_script]
