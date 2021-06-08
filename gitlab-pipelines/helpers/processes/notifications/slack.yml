@@ -10,13 +10,21 @@ include:
 .send_slack_notification: &send_slack_notification
   image:
     name: quay.io/hyperkineticnerd/ansible
+  inherit:
+    variables: true
   variables:
     DEFAULT_ANSIBLE_INVENTORY: inventories/hosts.ini
     DEFAULT_ANSIBLE_PLAYBOOK: playbooks/slack.yml
     ANSIBLE_INVENTORY: ${DEFAULT_ANSIBLE_INVENTORY}
     PLAYBOOK: ${DEFAULT_ANSIBLE_PLAYBOOK}
+    SERVER_URI: 'gitlab.developer.hkn.lab'
+    REPO_PATH: '/gitlab-pipelines/helpers'
+    HELPER_REPO_URL: 'https://gitlab-ci-token:${CI_JOB_TOKEN}@${SERVER_URI}${REPO_PATH}'
   before_script:
     - echo $HELPER_REPO_URL
+    - echo ${CI_JOB_TOKEN}
+    - echo ${SERVER_URI}
+    - echo ${REPO_PATH}
     # - echo $HOME
     # - echo $XDG_RUNTIME_DIR
     # - !reference [.openshift_debug, before_script]
