@@ -18,7 +18,7 @@ include:
   before_script:
     # - echo $HOME
     # - echo $XDG_RUNTIME_DIR
-    - ansible --version
+    - /usr/local/bin/ansible --version
     # - !reference [.openshift_debug, before_script]
     # - !reference [.openshift_hacks, before_script]
     # - !reference [.ansible_depends, before_script]
@@ -26,4 +26,4 @@ include:
     # - !reference [.ansible_install, before_script]
   script:
     # - ansible-galaxy install -r roles/requirements.yml
-    - ansible-playbook -i $ANSIBLE_INVENTORY $PLAYBOOK
+    - /usr/local/bin/ansible-playbook -i $ANSIBLE_INVENTORY $PLAYBOOK
