@@ -8,6 +8,11 @@ variables:
   UNTRUSTED_IMAGE_TARGET: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-untrusted
   TRUSTED_IMAGE_TARGET: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-trusted
 
+include:
+  - project: gitlab-pipelines/helpers
+    file:
+      - processes/notifications/slack.yml
+
 container_build_notification:
   extends: .send_slack_notification
   stage: notifications
