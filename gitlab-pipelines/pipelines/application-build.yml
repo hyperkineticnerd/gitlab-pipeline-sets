@@ -1,0 +1,27 @@
+stages:
+- compile
+- unit-tests
+- coverage
+- static-code-analysis
+- notifications
+- container-build
+
+include:
+  - project: gitlab-pipelines/helpers
+    file:
+      - processes/notifications/slack.yml
+      - processes/sonarqube/scan.yml
+
+sonarqube_static_code_analysis:
+  extends: .sonarqube
+  stage: static-code-analysis
+
+trigger_build_container:
+  stage: container-build
+  inherit:
+    variables: true
+  trigger:
+    strategy: depend
+    include:
+      - project: gitlab-pipelines/pipelines
+        file: /container-build.yml
