@@ -47,7 +47,7 @@ container_build_dockerfile:
   inherit:
     variables: true
   variables:
-    TARGET: $UNTRUSTED_IMAGE_TARGET
+    TARGET: "$UNTRUSTED_IMAGE_TARGET"
 
 container_build_push_image:
   extends: .podman_push
@@ -56,7 +56,7 @@ container_build_push_image:
   inherit:
     variables: true
   variables:
-    TARGET: $UNTRUSTED_IMAGE_TARGET
+    TARGET: "$UNTRUSTED_IMAGE_TARGET"
 
 # container_build_notification:
 #   extends: .send_slack_notification
