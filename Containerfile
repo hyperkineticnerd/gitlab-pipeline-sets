@@ -3,8 +3,9 @@ LABEL maintainer="Sean Nelson <snelson@redhat.com>"
 
 USER 0
 
-RUN dnf module install -y container-tools --skip-broken && \
-    dnf install -y buildah podman skopeo && \
+RUN dnf install -y git && \
+    dnf install -y python38 && \
+    pip3 install $ANSIBLE_PACKAGE && \
     dnf clean all
 
 USER 1001
