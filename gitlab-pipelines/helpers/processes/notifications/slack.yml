@@ -9,7 +9,7 @@ include:
 
 .send_slack_notification: &send_slack_notification
   image:
-    name: quay.io/dlystra/ansible-container
+    name: quay.io/dlystra/ansible
   variables:
     DEFAULT_ANSIBLE_INVENTORY: inventories/hosts.ini
     DEFAULT_ANSIBLE_PLAYBOOK: playbooks/slack.yml
