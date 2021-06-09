@@ -12,6 +12,10 @@ function subtree_add() {
     git fetch subtree_helpers
     git subtree add --prefix=gitlab-pipelines/helpers subtree_helpers master
 
+    git remote add subtree_ansible-slack git@gitlab.developer.hkn.lab:gitlab-pipelines/containers/ansible.git
+    git fetch subtree_ansible-slack
+    git subtree add --prefix=gitlab-pipelines/containers/ansible subtree_ansible-slack master
+
     git remote add subtree_containers-ansible git@gitlab.developer.hkn.lab:gitlab-pipelines/containers/ansible.git
     git fetch subtree_containers-ansible
     git subtree add --prefix=gitlab-pipelines/containers/ansible subtree_containers-ansible master
@@ -28,6 +32,7 @@ function subtree_add() {
 function subtree_pull() {
     git subtree pull --squash --prefix=gitlab-pipelines/pipelines subtree_pipelines master
     git subtree pull --squash --prefix=gitlab-pipelines/helpers subtree_helpers master
+    git subtree pull --squash --prefix=gitlab-pipelines/ansible/slack subtree_ansible-slack master
     git subtree pull --squash --prefix=gitlab-pipelines/containers/ansible subtree_containers-ansible master
     git subtree pull --squash --prefix=gitlab-pipelines/containers/podman subtree_containers-podman master
     git subtree pull --squash --prefix=gitlab-pipelines/containers/container-build subtree_containers-container-build master
@@ -36,6 +41,7 @@ function subtree_pull() {
 function subtree_push() {
     git subtree push --prefix gitlab-pipelines/pipelines subtree_pipelines master
     git subtree push --prefix gitlab-pipelines/helpers subtree_helpers master
+    git subtree push --prefix=gitlab-pipelines/ansible/slack subtree_ansible-slack master
     git subtree push --prefix gitlab-pipelines/containers/ansible subtree_containers-ansible master --rejoin
     git subtree push --prefix gitlab-pipelines/containers/podman subtree_containers-podman master
     git subtree push --prefix=gitlab-pipelines/containers/container-build subtree_containers-container-build master
