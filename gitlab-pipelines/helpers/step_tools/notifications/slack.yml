@@ -18,7 +18,7 @@ include:
     ANSIBLE_INVENTORY: ${DEFAULT_ANSIBLE_INVENTORY}
     PLAYBOOK: ${DEFAULT_ANSIBLE_PLAYBOOK}
     SERVER_URI: 'gitlab.developer.hkn.lab'
-    REPO_PATH: '/gitlab-pipelines/helpers'
+    REPO_PATH: '/gitlab-pipelines/ansible/slack'
     HELPER_REPO_URL: 'https://gitlab-ci-token:${CI_JOB_TOKEN}@${SERVER_URI}${REPO_PATH}'
   before_script:
     # - echo $HELPER_REPO_URL
