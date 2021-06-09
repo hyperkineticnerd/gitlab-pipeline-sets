@@ -13,13 +13,13 @@ include:
     file:
       - step_tools/notifications/slack.yml
 
-container_build_notification:
-  extends: .send_slack_notification
-  stage: notifications
-  inherit:
-    variables: true
-  variables:
-    MESSAGE: "Container Build Started"
+# container_build_notification:
+#   extends: .send_slack_notification
+#   stage: notifications
+#   inherit:
+#     variables: true
+#   variables:
+#     MESSAGE: "Container Build Started"
 
 trigger_container_build:
   stage: trigger-next
