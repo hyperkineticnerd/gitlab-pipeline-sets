@@ -18,6 +18,7 @@
     OPTIONS: ''
   before_script:
     - whoami
+    - id
     - echo $HOME
     - echo $XDG_RUNTIME_DIR
     - ls -lha /home/build/.config/containers/
