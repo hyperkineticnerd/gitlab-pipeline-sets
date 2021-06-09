@@ -27,8 +27,11 @@ include:
     # - echo ${CI_JOB_TOKEN}
     # - echo ${SERVER_URI}
     # - echo ${REPO_PATH}
+    - ls /home
     - echo $HOME
     - echo $XDG_RUNTIME_DIR
+    - export HOME=/home/ansible
+    - mkdir -p $HOME
     # - !reference [.openshift_debug, before_script]
     # - !reference [.openshift_hacks, before_script]
     # - !reference [.ansible_depends, before_script]
