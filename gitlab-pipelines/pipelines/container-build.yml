@@ -6,24 +6,12 @@ stages:
 - artifacts-notifications
 - security
 
-# default:
-#   variables:
-#     TLSVERIFY:
-#       value: 'true'
-#       description: "TLS Certificate Verification. If there are x509 errors, try using 'false', but it's Best Practice to fix your certificates!"
-#     UNTRUSTED_IMAGE_TARGET:
-#       value: $CI_REGISTRY_IMAGE:untrusted-$CI_COMMIT_REF_SLUG
-#       description: "The Untrusted Container Image Location"
-#     TRUSTED_IMAGE_TARGET:
-#       value: $CI_REGISTRY_IMAGE:trusted-$CI_COMMIT_REF_SLUG
-#       description: "The Trusted Container Image Location."
-
 include:
   - project: gitlab-pipelines/helpers
     file:
-      - processes/buildah/bud.yml
-      - processes/podman/push.yml
-      - processes/notifications/slack.yml
+      - step_tools/buildah/bud.yml
+      - step_tools/podman/push.yml
+      - step_tools/notifications/slack.yml
 
 clean_varlibcontainers_pvc:
   stage: .pre
@@ -48,7 +36,6 @@ container_build_dockerfile:
 container_build_push_image:
   extends: .podman_push
   stage: build-push
-  # needs: [container_build_dockerfile]
   inherit:
     variables: true
   variables:
@@ -70,8 +57,6 @@ trigger_container_security:
     TLSVERIFY: $TLSVERIFY
     UNTRUSTED_IMAGE_TARGET: $UNTRUSTED_IMAGE_TARGET
     TRUSTED_IMAGE_TARGET: $TRUSTED_IMAGE_TARGET
-  #   SOURCE_CONTAINER_IMAGE: quay.apps.ocp4.example.com/untrusted/$CI_PROJECT_NAME:untrusted-$CI_COMMIT_SHORT_SHA
-  #   DEST_CONTAINER_IMAGE: quay.apps.ocp4.example.com/trusted/$CI_PROJECT_NAME:trusted-$CI_COMMIT_SHORT_SHA
   trigger:
     strategy: depend
     include:

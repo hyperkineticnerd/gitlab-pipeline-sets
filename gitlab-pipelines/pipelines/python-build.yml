@@ -9,9 +9,9 @@ stages:
 include:
   - project: gitlab-pipelines/helpers
     file:
-      - processes/notifications/slack.yml
-      - processes/sonarqube/scan.yml
-      - processes/python/build.yml
+      - step_tools/notifications/slack.yml
+      - step_tools/sonarqube/scan.yml
+      - step_tools/python/build.yml
 
 python_lint:
   extends: .python_lint

@@ -3,9 +3,9 @@
 #     MESSAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
 
 include:
-  # - local: /components/openshift/hacks.yml
-  - local: /components/helpers/merge.yml
-  # - local: /components/ansible/install.yml
+  # - local: /step_helpers/openshift/hacks.yml
+  - local: /step_helpers/helpers/merge.yml
+  # - local: /step_helpers/ansible/install.yml
 
 .send_slack_notification: &send_slack_notification
   image:
