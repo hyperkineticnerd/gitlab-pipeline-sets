@@ -20,8 +20,9 @@
     - whoami
     - echo $HOME
     - echo $XDG_RUNTIME_DIR
-    - ls -lha /home
-    - export HOME=/home/build
+    - ls -lha /home/build/.config/containers/storage.conf
+    - cat /home/build/.config/containers/storage.conf
+    # - export HOME=/home/build
   #   - cat /etc/subuid
   #   - cat /etc/subgid
   script:
