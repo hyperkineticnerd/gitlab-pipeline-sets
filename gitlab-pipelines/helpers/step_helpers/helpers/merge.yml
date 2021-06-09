@@ -1,8 +1,8 @@
 .git_merge_helpers:
-    variables:
-        SERVER_URI: 'gitlab.developer.hkn.lab'
-        REPO_PATH: '/gitlab-pipelines/helpers'
-        HELPER_REPO_URL: 'https://gitlab-ci-token:${CI_JOB_TOKEN}@${SERVER_URI}${REPO_PATH}'
+    # variables:
+    #     SERVER_URI: 'gitlab.developer.hkn.lab'
+    #     REPO_PATH: '/gitlab-pipelines/helpers'
+    #     HELPER_REPO_URL: 'https://gitlab-ci-token:${CI_JOB_TOKEN}@${SERVER_URI}${REPO_PATH}'
     before_script:
         - git config http.sslVerify "false"
         - git config user.name "GitLab-CI"
