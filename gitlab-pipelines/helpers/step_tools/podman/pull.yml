@@ -1,7 +1,8 @@
 ## Podman Pull
 .podman_pull: &podman_pull
   image:
-    name: quay.io/podman/stable
+    name: quay.io/hyperkineticnerd/buildah
+    # name: quay.io/podman/stable
   inherit:
     variables: true
   variables:
