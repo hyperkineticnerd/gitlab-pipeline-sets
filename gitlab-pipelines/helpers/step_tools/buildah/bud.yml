@@ -5,7 +5,7 @@
   inherit:
     variables: true
   variables:
-    HOME: /home/build
+    # HOME: /home/build
     # BUILDAH_ISOLATION: chroot
     STORAGE_DRIVER: vfs
     FORMAT: oci
@@ -20,6 +20,7 @@
     - echo $HOME
     - echo $XDG_RUNTIME_DIR
     - ls -lha /home
+    - export HOME=/home/build
   #   - cat /etc/subuid
   #   - cat /etc/subgid
   script:
