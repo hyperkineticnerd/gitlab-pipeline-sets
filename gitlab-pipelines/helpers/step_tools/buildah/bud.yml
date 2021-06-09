@@ -1,10 +1,11 @@
 .buildah_bud: &buildah_bud
   image:
-    name: quay.io/buildah/stable
+    # name: quay.io/buildah/stable
+    name: registry.access.redhat.com/ubi8/buildah
   inherit:
     variables: true
   variables:
-    BUILDAH_ISOLATION: chroot
+    # BUILDAH_ISOLATION: chroot
     STORAGE_DRIVER: vfs
     FORMAT: oci
     TLSVERIFY: 'true'
@@ -13,11 +14,11 @@
     TARGET: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
     CREDENTIALS: ''
     OPTIONS: ''
-  # before_script:
-  #   - whoami
-  #   - echo $HOME
-  #   - echo $XDG_RUNTIME_DIR
-  #   - ls -lha /home
+  before_script:
+    - whoami
+    - echo $HOME
+    - echo $XDG_RUNTIME_DIR
+    - ls -lha /home
   #   - cat /etc/subuid
   #   - cat /etc/subgid
   script:

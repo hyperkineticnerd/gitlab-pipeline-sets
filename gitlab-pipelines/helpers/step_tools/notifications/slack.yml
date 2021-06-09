@@ -27,6 +27,7 @@ include:
     # - echo ${CI_JOB_TOKEN}
     # - echo ${SERVER_URI}
     # - echo ${REPO_PATH}
+    - ls /
     - ls /home
     - echo $HOME
     - echo $XDG_RUNTIME_DIR
@@ -35,8 +36,8 @@ include:
     # - !reference [.openshift_debug, before_script]
     # - !reference [.openshift_hacks, before_script]
     # - !reference [.ansible_depends, before_script]
-    - !reference [.git_merge_helpers, before_script]
     # - !reference [.ansible_install, before_script]
+    - !reference [.git_merge_helpers, before_script]
     - /usr/local/bin/ansible --version
   script:
     # - ansible-galaxy install -r roles/requirements.yml
