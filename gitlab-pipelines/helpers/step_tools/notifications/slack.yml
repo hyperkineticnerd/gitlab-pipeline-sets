@@ -21,12 +21,14 @@ include:
     REPO_PATH: '/gitlab-pipelines/ansible/slack'
     HELPER_REPO_URL: 'https://gitlab-ci-token:${CI_JOB_TOKEN}@${SERVER_URI}${REPO_PATH}'
   before_script:
+    - whoami
+    - id
     # - echo $HELPER_REPO_URL
     # - echo ${CI_JOB_TOKEN}
     # - echo ${SERVER_URI}
     # - echo ${REPO_PATH}
-    # - echo $HOME
-    # - echo $XDG_RUNTIME_DIR
+    - echo $HOME
+    - echo $XDG_RUNTIME_DIR
     # - !reference [.openshift_debug, before_script]
     # - !reference [.openshift_hacks, before_script]
     # - !reference [.ansible_depends, before_script]

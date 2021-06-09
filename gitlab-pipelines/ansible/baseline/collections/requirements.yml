@@ -1,0 +1,6 @@
+---
+collections:
+  - name: mitre.slack
+    source: git@gitlab.developer.hkn.lab/gitlab-pipelines/ansible/slack.git
+    type: git
+    version: master
