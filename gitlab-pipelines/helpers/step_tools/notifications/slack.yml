@@ -4,7 +4,6 @@
   inherit:
     variables: true
   variables:
-    PATH: "/usr/local/bin:/usr/bin:/bin"
     DEFAULT_ANSIBLE_INVENTORY: inventories/hosts.ini
     DEFAULT_ANSIBLE_PLAYBOOK: example.slack.slack
     # ANSIBLE_INVENTORY: ${DEFAULT_ANSIBLE_INVENTORY}
@@ -14,8 +13,8 @@
   before_script:
     - id
     - export PATH="/usr/local/bin:$PATH"
-    - echo $PATH
-    - echo $HOME
+    # - echo $PATH
+    # - echo $HOME
     - git config --global http.sslVerify false
     - echo "machine gitlab.developer.hkn.lab login gitlab-ci-token password ${CI_JOB_TOKEN}" > ${HOME}/.netrc
     - ansible --version
