@@ -15,17 +15,18 @@ include:
   variables:
     DEFAULT_ANSIBLE_INVENTORY: inventories/hosts.ini
     DEFAULT_ANSIBLE_PLAYBOOK: example.slack.slack
-    ANSIBLE_INVENTORY: ${DEFAULT_ANSIBLE_INVENTORY}
+    # ANSIBLE_INVENTORY: ${DEFAULT_ANSIBLE_INVENTORY}
+    ANSIBLE_INVENTORY: "localhost,"
     PLAYBOOK: ${DEFAULT_ANSIBLE_PLAYBOOK}
 
     # SERVER_URI: 'gitlab.developer.hkn.lab'
     # REPO_PATH: '/gitlab-pipelines/ansible/slack'
     # HELPER_REPO_URL: 'https://gitlab-ci-token:${CI_JOB_TOKEN}@${SERVER_URI}${REPO_PATH}'
 
-    ANSIBLE_GALAXY_SERVER_LIST: "gitlab"
-    ANSIBLE_GALAXY_SERVER_GITLAB_URL: 'https://gitlab.developer.hkn.lab/gitlab-pipelines/ansible/slack.git'
-    ANSIBLE_GALAXY_SERVER_GITLAB_USERNAME: "gitlab-ci-token"
-    ANSIBLE_GALAXY_SERVER_GITLAB_PASSWORD: "${CI_JOB_TOKEN}"
+    # ANSIBLE_GALAXY_SERVER_LIST: "gitlab"
+    # ANSIBLE_GALAXY_SERVER_GITLAB_URL: 'https://gitlab.developer.hkn.lab/gitlab-pipelines/ansible/slack.git'
+    # ANSIBLE_GALAXY_SERVER_GITLAB_USERNAME: "gitlab-ci-token"
+    # ANSIBLE_GALAXY_SERVER_GITLAB_PASSWORD: "${CI_JOB_TOKEN}"
 
   before_script:
     # - whoami
