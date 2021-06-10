@@ -45,5 +45,5 @@ include:
     # - !reference [.git_merge_helpers, before_script]
     - /usr/local/bin/ansible --version
   script:
-    - /usr/local/bin/ansible-galaxy collection install --server gitlab --ignore-certs https://gitlab.developer.hkn.lab/gitlab-pipelines/ansible/slack.git
+    - /usr/local/bin/ansible-galaxy collection install --server gitlab --ignore-certs git+https://gitlab.developer.hkn.lab/gitlab-pipelines/ansible/slack.git
     - /usr/local/bin/ansible-playbook -i $ANSIBLE_INVENTORY $PLAYBOOK
