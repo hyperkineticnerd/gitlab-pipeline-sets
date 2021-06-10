@@ -47,6 +47,10 @@ function subtree_push() {
     git subtree push --prefix=gitlab-pipelines/containers/container-build subtree_containers-container-build master
 }
 
+function examples_push() {
+    git subtree push --prefix pipeline-examples/python-seed-app git@gitlab.developer.hkn.lab:pipeline-examples/python-seed-app.git master
+}
+
 while [[ $# -gt 0 ]]; do
     key="${1}"
     case $key in
@@ -60,6 +64,10 @@ while [[ $# -gt 0 ]]; do
         ;;
         push)
         subtree_push
+        shift
+        ;;
+        push-ex)
+        examples_push
         shift
         ;;
         *)

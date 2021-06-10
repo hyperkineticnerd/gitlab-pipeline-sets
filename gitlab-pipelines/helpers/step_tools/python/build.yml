@@ -1,23 +1,44 @@
 .python_coverage: &python_coverage
   image:
-    - name: python-38
+    - name: registry.access.redhat.com/ubi8/ubi
   inherit:
     variables: true
+  before_script:
+    - dnf install -y python39
+    - pip3 install tox pylint
   script:
     - python coverage command
 
 .python_lint: &python_lint
   image:
-    - name: python-38
+    - name: registry.access.redhat.com/ubi8/ubi
   inherit:
     variables: true
+  before_script:
+    - dnf install -y python39
+    - pip3 install tox pylint
   script:
     - pylint
 
 .python_tox: &python_tox
   image:
-    - name: python-38
+    - name: registry.access.redhat.com/ubi8/ubi
   inherit:
     variables: true
+  before_script:
+    - dnf install -y python39
+    - pip3 install tox pylint
   script:
-    - tox .
+    - tox
+    - tox -e lint
+
+.python_tox_lint: &python_tox_lint
+  image:
+    - name: registry.access.redhat.com/ubi8/ubi
+  inherit:
+    variables: true
+  before_script:
+    - dnf install -y python39
+    - pip3 install tox pylint
+  script:
+    - tox -e lint
