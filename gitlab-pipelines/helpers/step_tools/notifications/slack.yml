@@ -12,9 +12,10 @@
     ANSIBLE_COLLECTION_URL: git+https://gitlab.developer.hkn.lab/gitlab-pipelines/ansible/slack.git
   before_script:
     - id
+    - echo $PATH
     - git config --global http.sslVerify false
     - echo "machine gitlab.developer.hkn.lab login gitlab-ci-token password ${CI_JOB_TOKEN}" > ${HOME}/.netrc
-    - ansible --version
+    - /usr/local/bin/ansible --version
   script:
-    - ansible-galaxy collection install ${ANSIBLE_COLLECTION_URL}
-    - ansible-playbook -i ${ANSIBLE_INVENTORY} ${PLAYBOOK}
+    - /usr/local/bin/ansible-galaxy collection install ${ANSIBLE_COLLECTION_URL}
+    - /usr/local/bin/ansible-playbook -i ${ANSIBLE_INVENTORY} ${PLAYBOOK}
