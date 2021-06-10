@@ -1,0 +1,3 @@
+collections:
+- name: mitre.slack
+  src: git+https://gitlab.developer.hkn.lab/gitlab-pipelines/ansible/slack
