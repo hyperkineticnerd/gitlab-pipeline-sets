@@ -13,6 +13,7 @@
     ANSIBLE_COLLECTION_URL: git+https://gitlab.developer.hkn.lab/gitlab-pipelines/ansible/slack.git
   before_script:
     - id
+    - export PATH="/usr/local/bin:$PATH"
     - echo $PATH
     - echo $HOME
     - git config --global http.sslVerify false
