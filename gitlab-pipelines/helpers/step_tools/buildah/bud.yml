@@ -1,7 +1,7 @@
 .buildah_bud: &buildah_bud
   image:
-    # name: quay.io/buildah/stable
-    name: quay.io/ploigos/ploigos-tool-containers
+    name: quay.io/buildah/stable
+    # name: quay.io/ploigos/ploigos-tool-containers
     # name: registry.access.redhat.com/ubi8/buildah
     # name: quay.io/hyperkineticnerd/buildah
   inherit:
