@@ -1,6 +1,6 @@
 .python_coverage: &python_coverage
   image:
-    - name: registry.access.redhat.com/ubi8/ubi
+    name: registry.access.redhat.com/ubi8/ubi
   inherit:
     variables: true
   before_script:
@@ -11,7 +11,7 @@
 
 .python_lint: &python_lint
   image:
-    - name: registry.access.redhat.com/ubi8/ubi
+    name: registry.access.redhat.com/ubi8/ubi
   inherit:
     variables: true
   before_script:
@@ -22,7 +22,7 @@
 
 .python_tox: &python_tox
   image:
-    - name: registry.access.redhat.com/ubi8/ubi
+    name: registry.access.redhat.com/ubi8/ubi
   inherit:
     variables: true
   before_script:
@@ -34,7 +34,7 @@
 
 .python_tox_lint: &python_tox_lint
   image:
-    - name: registry.access.redhat.com/ubi8/ubi
+    name: registry.access.redhat.com/ubi8/ubi
   inherit:
     variables: true
   before_script:
