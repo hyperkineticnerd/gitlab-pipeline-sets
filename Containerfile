@@ -24,5 +24,6 @@ RUN useradd ${POD_USER_NAME} --uid ${POD_USER_UID} --gid ${POD_USER_GID} --home-
     chown -R ${POD_USER_UID}:${POD_USER_GID} ${POD_HOME_DIR} && \
     chmod -R g+w ${POD_HOME_DIR}
 
+ENV PATH /usr/local/bin:$PATH
 # WORKDIR ${POD_HOME_DIR}
 USER ${POD_USER_UID}
