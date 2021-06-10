@@ -43,8 +43,9 @@ include:
     # - !reference [.ansible_depends, before_script]
     # - !reference [.ansible_install, before_script]
     # - !reference [.git_merge_helpers, before_script]
-    - /usr/local/bin/ansible --version
+    - git config --global http.sslVerify false
     - echo "machine gitlab.developer.hkn.lab login gitlab-ci-token password ${CI_JOB_TOKEN}" > ${HOME}/.netrc
+    - /usr/local/bin/ansible --version
   script:
     - /usr/local/bin/ansible-galaxy collection install git+https://gitlab.developer.hkn.lab/gitlab-pipelines/ansible/slack.git
     - /usr/local/bin/ansible-playbook -i $ANSIBLE_INVENTORY $PLAYBOOK
