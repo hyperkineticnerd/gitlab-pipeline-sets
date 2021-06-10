@@ -17,28 +17,33 @@ include:
     DEFAULT_ANSIBLE_PLAYBOOK: playbooks/slack.yml
     ANSIBLE_INVENTORY: ${DEFAULT_ANSIBLE_INVENTORY}
     PLAYBOOK: ${DEFAULT_ANSIBLE_PLAYBOOK}
-    SERVER_URI: 'gitlab.developer.hkn.lab'
-    REPO_PATH: '/gitlab-pipelines/ansible/slack'
-    HELPER_REPO_URL: 'https://gitlab-ci-token:${CI_JOB_TOKEN}@${SERVER_URI}${REPO_PATH}'
+
+    # SERVER_URI: 'gitlab.developer.hkn.lab'
+    # REPO_PATH: '/gitlab-pipelines/ansible/slack'
+    # HELPER_REPO_URL: 'https://gitlab-ci-token:${CI_JOB_TOKEN}@${SERVER_URI}${REPO_PATH}'
+
+    ANSIBLE_GALAXY_SERVER_LIST: "gitlab"
+    ANSIBLE_GALAXY_SERVER_GITLAB_URL: 'https://gitlab.developer.hkn.lab/gitlab-pipelines/'
+    ANSIBLE_GALAXY_SERVER_GITLAB_USERNAME: "gitlab-ci-token"
+    ANSIBLE_GALAXY_SERVER_GITLAB_PASSWORD: "${CI_JOB_TOKEN}"
+
   before_script:
-    - whoami
+    # - whoami
     - id
     # - echo $HELPER_REPO_URL
     # - echo ${CI_JOB_TOKEN}
     # - echo ${SERVER_URI}
     # - echo ${REPO_PATH}
-    - ls /
-    - ls /home
-    - echo $HOME
-    - echo $XDG_RUNTIME_DIR
-    - export HOME=/home/ansible
-    - mkdir -p $HOME
+    # - ls /
+    # - ls /home
+    # - echo $HOME
+    # - echo $XDG_RUNTIME_DIR
     # - !reference [.openshift_debug, before_script]
     # - !reference [.openshift_hacks, before_script]
     # - !reference [.ansible_depends, before_script]
     # - !reference [.ansible_install, before_script]
-    - !reference [.git_merge_helpers, before_script]
+    # - !reference [.git_merge_helpers, before_script]
     - /usr/local/bin/ansible --version
   script:
-    # - ansible-galaxy install -r roles/requirements.yml
+    - /usr/local/bin/ansible-galaxy collection install --server gitlab --ignore-certs --collections-path ${CI_PROJECT_PATH}/collections ansible.slack
     - /usr/local/bin/ansible-playbook -i $ANSIBLE_INVENTORY $PLAYBOOK

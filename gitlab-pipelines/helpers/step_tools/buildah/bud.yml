@@ -6,7 +6,6 @@
   inherit:
     variables: true
   variables:
-    # HOME: /home/build
     # BUILDAH_ISOLATION: chroot
     STORAGE_DRIVER: vfs
     FORMAT: oci
