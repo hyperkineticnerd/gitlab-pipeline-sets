@@ -17,6 +17,7 @@ include:
     DEFAULT_ANSIBLE_PLAYBOOK: example.slack.slack
     # ANSIBLE_INVENTORY: ${DEFAULT_ANSIBLE_INVENTORY}
     ANSIBLE_INVENTORY: "localhost,"
+    ANSIBLE_COLLECTION_URL: git+https://gitlab.developer.hkn.lab/gitlab-pipelines/ansible/slack.git
     PLAYBOOK: ${DEFAULT_ANSIBLE_PLAYBOOK}
 
     # SERVER_URI: 'gitlab.developer.hkn.lab'
@@ -48,5 +49,5 @@ include:
     - echo "machine gitlab.developer.hkn.lab login gitlab-ci-token password ${CI_JOB_TOKEN}" > ${HOME}/.netrc
     - /usr/local/bin/ansible --version
   script:
-    - /usr/local/bin/ansible-galaxy collection install git+https://gitlab.developer.hkn.lab/gitlab-pipelines/ansible/slack.git
-    - /usr/local/bin/ansible-playbook -i $ANSIBLE_INVENTORY $PLAYBOOK
+    - /usr/local/bin/ansible-galaxy collection install ${ANSIBLE_COLLECTION_URL}
+    - /usr/local/bin/ansible-playbook -i ${ANSIBLE_INVENTORY} ${PLAYBOOK}

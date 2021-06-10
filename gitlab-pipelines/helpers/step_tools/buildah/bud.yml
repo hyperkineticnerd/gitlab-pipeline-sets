@@ -20,9 +20,9 @@
     - id
     - echo $HOME
     - echo $XDG_RUNTIME_DIR
-    - ls -lha /home/build/
-    - ls -lha /home/build/.config/
-    - ls -lha /home/build/.config/containers/
+    # - ls -lha /home/build/
+    # - ls -lha /home/build/.config/
+    # - ls -lha /home/build/.config/containers/
     # - cat /home/build/.config/containers/storage.conf
     # - export HOME=/home/build
   #   - cat /etc/subuid
