@@ -7,8 +7,7 @@ ARG POD_USER_GID=0
 ARG POD_HOME_DIR=/home/ansible
 ARG PIP_ANSIBLE="ansible-core==2.11.1"
 
-ENV HOME="/home/ansible"
-ENV PATH="/usr/local/bin:$PATH"
+ENV HOME="${POD_HOME_DIR}"
 
 USER root
 
@@ -22,6 +21,7 @@ RUN useradd ${POD_USER_NAME} --uid ${POD_USER_UID} --gid ${POD_USER_GID} --home-
     chown -R ${POD_USER_UID}:${POD_USER_GID} ${POD_HOME_DIR} && \
     chmod -R g+w ${POD_HOME_DIR}
 
+WORKDIR ${POD_HOME_DIR}
 USER ${POD_USER_UID}
-ENV HOME="/home/ansible"
-ENV PATH="/usr/local/bin:$PATH"
+ENV PATH="/usr/local/bin:/usr/bin:/bin"
+RUN echo "export PATH=\"${PATH}:/usr/local/bin\" >> ${HOME}/.bashrc"
