@@ -1,0 +1,4 @@
+ANSIBLE_GALAXY_SERVER_LIST="gitlab"
+ANSIBLE_GALAXY_SERVER_GITLAB_URL='git+https://gitlab.developer.hkn.lab/gitlab-pipelines/ansible/slack.git'
+ANSIBLE_GALAXY_SERVER_GITLAB_USERNAME="snelson"
+ANSIBLE_GALAXY_SERVER_GITLAB_PASSWORD="M$RK0f7heN!NJA"

@@ -14,7 +14,7 @@ include:
     variables: true
   variables:
     DEFAULT_ANSIBLE_INVENTORY: inventories/hosts.ini
-    DEFAULT_ANSIBLE_PLAYBOOK: playbooks/slack.yml
+    DEFAULT_ANSIBLE_PLAYBOOK: example.slack.slack
     ANSIBLE_INVENTORY: ${DEFAULT_ANSIBLE_INVENTORY}
     PLAYBOOK: ${DEFAULT_ANSIBLE_PLAYBOOK}
 
@@ -23,7 +23,7 @@ include:
     # HELPER_REPO_URL: 'https://gitlab-ci-token:${CI_JOB_TOKEN}@${SERVER_URI}${REPO_PATH}'
 
     ANSIBLE_GALAXY_SERVER_LIST: "gitlab"
-    ANSIBLE_GALAXY_SERVER_GITLAB_URL: 'https://gitlab.developer.hkn.lab/gitlab-pipelines/'
+    ANSIBLE_GALAXY_SERVER_GITLAB_URL: 'https://gitlab.developer.hkn.lab/gitlab-pipelines/ansible/slack.git'
     ANSIBLE_GALAXY_SERVER_GITLAB_USERNAME: "gitlab-ci-token"
     ANSIBLE_GALAXY_SERVER_GITLAB_PASSWORD: "${CI_JOB_TOKEN}"
 
@@ -44,6 +44,7 @@ include:
     # - !reference [.ansible_install, before_script]
     # - !reference [.git_merge_helpers, before_script]
     - /usr/local/bin/ansible --version
+    - echo "machine gitlab.developer.hkn.lab login gitlab-ci-token password ${CI_JOB_TOKEN}" > ${HOME}/.netrc
   script:
-    - /usr/local/bin/ansible-galaxy collection install --server gitlab --ignore-certs git+https://gitlab.developer.hkn.lab/gitlab-pipelines/ansible/slack.git
+    - /usr/local/bin/ansible-galaxy collection install git+https://gitlab.developer.hkn.lab/gitlab-pipelines/ansible/slack.git
     - /usr/local/bin/ansible-playbook -i $ANSIBLE_INVENTORY $PLAYBOOK

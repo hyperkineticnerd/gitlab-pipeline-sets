@@ -1,3 +1,5 @@
 collections:
-- name: mitre.slack
-  src: git+https://gitlab.developer.hkn.lab/gitlab-pipelines/ansible/slack
+  - name: example.slack
+    src: git+https://gitlab.developer.hkn.lab/gitlab-pipelines/ansible/slack.git
+    scm: git
+    version: "master"
