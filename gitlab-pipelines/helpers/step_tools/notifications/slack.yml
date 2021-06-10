@@ -13,6 +13,7 @@
   before_script:
     - id
     - echo $PATH
+    - echo $HOME
     - git config --global http.sslVerify false
     - echo "machine gitlab.developer.hkn.lab login gitlab-ci-token password ${CI_JOB_TOKEN}" > ${HOME}/.netrc
     - /usr/local/bin/ansible --version
