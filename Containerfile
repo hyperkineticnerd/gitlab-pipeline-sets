@@ -10,6 +10,7 @@ ENV HOME="/home/ansible"
 # ENV LC_ALL=en_US.UTF-8
 
 USER root
+# WORKDIR /
 
 RUN echo "enabled=0" >> /etc/yum/pluginconf.d/subscripton-manager.conf
 RUN dnf install -y git python38 && \
@@ -21,11 +22,10 @@ RUN useradd ${POD_USER_NAME} --uid ${POD_USER_UID} --gid ${POD_USER_GID} --home-
     chown -R ${POD_USER_UID}:${POD_USER_GID} ${POD_HOME_DIR} && \
     chmod -R g+w ${POD_HOME_DIR}
 
-# COPY ansible.cfg ${HOME}/.ansible/
-ENV ANSIBLE_GALAXY_SERVER_GITLAB_USERNAME="gitlab-ci-token"
-ENV ANSIBLE_GALAXY_SERVER_GITLAB_PASSWORD="${CI_JOB_TOKEN}"
+COPY ansible.cfg ${HOME}/.ansible.cfg
+COPY collections/requirements.yml ${HOME}/.ansible/collections/
 
-# WORKDIR /home/ansible
+# WORKDIR ${POD_HOME_DIR}
 USER ${POD_USER_UID}
 # ENTRYPOINT ["/bin/bash"]
 # ENTRYPOINT ["/bin/sh", "-c"]
