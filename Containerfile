@@ -8,6 +8,7 @@ ARG POD_HOME_DIR=/home/ansible
 ARG PIP_ANSIBLE="ansible-core==2.11.1"
 
 ENV HOME="/home/ansible"
+ENV PATH="/usr/local/bin:$PATH"
 # ENV LANG=en_US.UTF-8
 # ENV LC_ALL=en_US.UTF-8
 
@@ -24,6 +25,5 @@ RUN useradd ${POD_USER_NAME} --uid ${POD_USER_UID} --gid ${POD_USER_GID} --home-
     chown -R ${POD_USER_UID}:${POD_USER_GID} ${POD_HOME_DIR} && \
     chmod -R g+w ${POD_HOME_DIR}
 
-ENV PATH /usr/local/bin:$PATH
 # WORKDIR ${POD_HOME_DIR}
 USER ${POD_USER_UID}
