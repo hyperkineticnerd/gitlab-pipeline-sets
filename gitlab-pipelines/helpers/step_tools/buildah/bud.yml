@@ -1,8 +1,8 @@
 .buildah_bud: &buildah_bud
   image:
-    # name: quay.io/buildah/stable
+    name: quay.io/buildah/stable
     # name: registry.access.redhat.com/ubi8/buildah
-    name: quay.io/hyperkineticnerd/buildah
+    # name: quay.io/hyperkineticnerd/buildah
   inherit:
     variables: true
   variables:

@@ -1,8 +1,8 @@
 ## Podman Push
 .podman_push: &podman_push
   image:
-    name: quay.io/hyperkineticnerd/buildah
-    # name: quay.io/podman/stable
+    name: quay.io/podman/stable
+    # name: quay.io/hyperkineticnerd/buildah
   inherit:
     variables: true
   variables:
