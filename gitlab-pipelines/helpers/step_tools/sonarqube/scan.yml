@@ -1,6 +1,7 @@
 .sonarqube_scan: &sonarqube_scan
   image:
-    name: registry.access.redhat.com/ubi8/ubi
+    # name: registry.access.redhat.com/ubi8/ubi
+    name: quay.io/ploigos/ploigos-tool-sonar:nightly
   inherit:
     variables: true
   script:

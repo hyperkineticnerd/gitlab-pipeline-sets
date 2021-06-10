@@ -6,7 +6,7 @@
   inherit:
     variables: true
   variables:
-    # BUILDAH_ISOLATION: chroot
+    BUILDAH_ISOLATION: chroot
     STORAGE_DRIVER: vfs
     FORMAT: oci
     TLSVERIFY: 'true'
