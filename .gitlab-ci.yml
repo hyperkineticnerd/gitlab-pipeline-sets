@@ -1,0 +1,21 @@
+stages:
+  - lint
+  - unit-test
+  - python-trigger
+  - container-trigger
+
+trigger_python_build:
+  stage: python-trigger
+  trigger:
+    strategy: depend
+    include:
+      - project: gitlab-pipelines/pipelines
+        file: /python-build.yml
+
+# trigger_container_build_pipeline:
+#   stage: container-trigger
+#   trigger:
+#     strategy: depend
+#     include:
+#       - project: gitlab-pipelines/pipelines
+#         file: /container-build.yml
