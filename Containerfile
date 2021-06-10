@@ -9,11 +9,8 @@ ARG PIP_ANSIBLE="ansible-core==2.11.1"
 
 ENV HOME="/home/ansible"
 ENV PATH="/usr/local/bin:$PATH"
-# ENV LANG=en_US.UTF-8
-# ENV LC_ALL=en_US.UTF-8
 
 USER root
-# WORKDIR /
 
 RUN echo "enabled=0" >> /etc/yum/pluginconf.d/subscripton-manager.conf
 RUN dnf install -y git python38 && \
@@ -25,5 +22,6 @@ RUN useradd ${POD_USER_NAME} --uid ${POD_USER_UID} --gid ${POD_USER_GID} --home-
     chown -R ${POD_USER_UID}:${POD_USER_GID} ${POD_HOME_DIR} && \
     chmod -R g+w ${POD_HOME_DIR}
 
-# WORKDIR ${POD_HOME_DIR}
 USER ${POD_USER_UID}
+ENV HOME="/home/ansible"
+ENV PATH="/usr/local/bin:$PATH"
