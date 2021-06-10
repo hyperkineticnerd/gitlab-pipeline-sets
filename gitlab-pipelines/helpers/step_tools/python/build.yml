@@ -4,6 +4,7 @@
   inherit:
     variables: true
   before_script:
+    - export PATH="/usr/local/bin:${PATH}"
     - dnf install -y python39
     - pip3 install tox pylint
   script:
@@ -15,6 +16,7 @@
   inherit:
     variables: true
   before_script:
+    - export PATH="/usr/local/bin:${PATH}"
     - dnf install -y python39
     - pip3 install tox pylint
   script:
@@ -26,6 +28,7 @@
   inherit:
     variables: true
   before_script:
+    - export PATH="/usr/local/bin:${PATH}"
     - dnf install -y python39
     - pip3 install tox pylint
   script:
@@ -38,6 +41,7 @@
   inherit:
     variables: true
   before_script:
+    - export PATH="/usr/local/bin:${PATH}"
     - dnf install -y python39
     - pip3 install tox pylint
   script:
