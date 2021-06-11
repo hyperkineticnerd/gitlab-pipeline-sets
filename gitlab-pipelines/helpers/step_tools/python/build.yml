@@ -1,47 +1,31 @@
-.python_coverage: &python_coverage
+default:
   image:
     name: registry.access.redhat.com/ubi8/ubi
-  inherit:
-    variables: true
   before_script:
     - export PATH="/usr/local/bin:${PATH}"
     - dnf install -y python39
-    - pip3 install tox pylint
+    - pip3 install converage pylint pytest tox
+
+.python_coverage: &python_coverage
+  inherit:
+    variables: true
   script:
-    - python coverage command
+    - coverage run -m pytest
 
 .python_lint: &python_lint
-  image:
-    name: registry.access.redhat.com/ubi8/ubi
   inherit:
     variables: true
-  before_script:
-    - export PATH="/usr/local/bin:${PATH}"
-    - dnf install -y python39
-    - pip3 install tox pylint
   script:
     - pylint
 
 .python_tox: &python_tox
-  image:
-    name: registry.access.redhat.com/ubi8/ubi
   inherit:
     variables: true
-  before_script:
-    - export PATH="/usr/local/bin:${PATH}"
-    - dnf install -y python39
-    - pip3 install tox pylint
   script:
     - tox
 
 .python_tox_lint: &python_tox_lint
-  image:
-    name: registry.access.redhat.com/ubi8/ubi
   inherit:
     variables: true
-  before_script:
-    - export PATH="/usr/local/bin:${PATH}"
-    - dnf install -y python39
-    - pip3 install tox pylint
   script:
     - tox -e lint
