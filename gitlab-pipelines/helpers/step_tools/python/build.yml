@@ -33,7 +33,6 @@
     - pip3 install tox pylint
   script:
     - tox
-    - tox -e lint
 
 .python_tox_lint: &python_tox_lint
   image:
