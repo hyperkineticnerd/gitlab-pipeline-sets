@@ -4,7 +4,7 @@ default:
   before_script:
     - export PATH="/usr/local/bin:${PATH}"
     - dnf install -y python39
-    - pip3 install converage pylint pytest tox
+    - pip3 install coverage pylint pytest tox
 
 .python_coverage: &python_coverage
   inherit:
