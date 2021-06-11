@@ -8,8 +8,9 @@
     variables: true
   variables:
     BUILDAH_ISOLATION: chroot
+    BUILDAH_FORMAT: oci
     STORAGE_DRIVER: vfs
-    FORMAT: oci
+    # FORMAT: oci
     TLSVERIFY: 'true'
     CONTEXT: '.'
     DOCKERFILE: 'Dockerfile'
@@ -29,7 +30,8 @@
   #   - cat /etc/subuid
   #   - cat /etc/subgid
   script:
-    - buildah --storage-driver=$STORAGE_DRIVER bud --format=$FORMAT --tls-verify=$TLSVERIFY --no-cache -t $TARGET -f $DOCKERFILE $CONTEXT
+    # - buildah --storage-driver=$STORAGE_DRIVER bud --format=$FORMAT --tls-verify=$TLSVERIFY --no-cache -t $TARGET -f $DOCKERFILE $CONTEXT
+    - buildah bud --tls-verify=$TLSVERIFY --no-cache -t $TARGET -f $DOCKERFILE $CONTEXT
   # after_script:
     # - skopeo --version
     # - podman version
