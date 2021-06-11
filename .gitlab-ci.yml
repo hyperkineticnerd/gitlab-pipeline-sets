@@ -1,11 +1,17 @@
 stages:
-  - lint
-  - unit-test
   - python-trigger
-  - container-trigger
+
+
+variables:
+  TLSVERIFY: 'false'
+  DOCKERFILE: 'Dockerfile'
+  UNTRUSTED_IMAGE_TARGET: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-untrusted
+  TRUSTED_IMAGE_TARGET: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-trusted
 
 trigger_python_build:
   stage: python-trigger
+  inherit:
+    variables: true
   trigger:
     strategy: depend
     include:
