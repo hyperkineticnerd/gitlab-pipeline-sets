@@ -48,17 +48,3 @@ container_build_notification:
     variables: true
   variables:
     MESSAGE: "Container Build Complete"
-
-trigger_container_security:
-  stage: security
-  inherit:
-    variables: true
-  variables:
-    TLSVERIFY: $TLSVERIFY
-    UNTRUSTED_IMAGE_TARGET: $UNTRUSTED_IMAGE_TARGET
-    TRUSTED_IMAGE_TARGET: $TRUSTED_IMAGE_TARGET
-  trigger:
-    strategy: depend
-    include:
-      - project: gitlab-pipelines/pipelines
-        file: /container-security.yml
