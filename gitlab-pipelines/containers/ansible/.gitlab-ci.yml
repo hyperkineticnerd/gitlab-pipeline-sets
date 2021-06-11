@@ -13,7 +13,7 @@ trigger_container_build:
   inherit:
     variables: true
   trigger:
-      strategy: depend
-      include:
-          - project: gitlab-pipelines/pipelines
-            file: /container-build.yml
+    strategy: depend
+    include:
+        - project: gitlab-pipelines/pipelines
+          file: /container-build.yml
