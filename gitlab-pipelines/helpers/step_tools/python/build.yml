@@ -11,6 +11,7 @@ default:
     variables: true
   script:
     - coverage run -m pytest
+    - coverage report -m pytest
 
 .python_lint: &python_lint
   inherit:
