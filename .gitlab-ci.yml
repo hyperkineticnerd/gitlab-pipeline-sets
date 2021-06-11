@@ -11,11 +11,3 @@ trigger_python_build:
     include:
       - project: gitlab-pipelines/pipelines
         file: /python-build.yml
-
-# trigger_container_build_pipeline:
-#   stage: container-trigger
-#   trigger:
-#     strategy: depend
-#     include:
-#       - project: gitlab-pipelines/pipelines
-#         file: /container-build.yml
