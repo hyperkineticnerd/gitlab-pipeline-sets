@@ -35,6 +35,10 @@ trigger_build_container:
   stage: container-build
   inherit:
     variables: true
+  variables:
+    TLSVERIFY: $TLSVERIFY
+    UNTRUSTED_IMAGE_TARGET: $UNTRUSTED_IMAGE_TARGET
+    TRUSTED_IMAGE_TARGET: $TRUSTED_IMAGE_TARGET
   trigger:
     strategy: depend
     include:
