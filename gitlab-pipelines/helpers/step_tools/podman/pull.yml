@@ -19,4 +19,4 @@
   #   - echo $CREDENTIALS
   #   - echo $TARGET
   script:
-    - podman --storage-driver=$STORAGE_DRIVER pull --tls-verify=$TLSVERIFY --creds $CREDENTIALS $TARGET
+    - podman pull --tls-verify=$TLSVERIFY --creds $CREDENTIALS $TARGET
