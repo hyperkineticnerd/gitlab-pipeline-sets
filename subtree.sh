@@ -33,6 +33,9 @@ function subtree_pull() {
     git subtree pull --squash --prefix=gitlab-pipelines/pipelines subtree_pipelines master
     git subtree pull --squash --prefix=gitlab-pipelines/helpers subtree_helpers master
     git subtree pull --squash --prefix=gitlab-pipelines/ansible/slack subtree_ansible-slack master
+}
+
+function container_pull() {
     git subtree pull --squash --prefix=gitlab-pipelines/containers/ansible subtree_containers-ansible master
     git subtree pull --squash --prefix=gitlab-pipelines/containers/podman subtree_containers-podman master
     git subtree pull --squash --prefix=gitlab-pipelines/containers/container-build subtree_containers-container-build master
@@ -42,6 +45,9 @@ function subtree_push() {
     git subtree push --prefix gitlab-pipelines/pipelines subtree_pipelines master
     git subtree push --prefix gitlab-pipelines/helpers subtree_helpers master
     git subtree push --prefix=gitlab-pipelines/ansible/slack subtree_ansible-slack master
+}
+
+function container_push() {
     git subtree push --prefix gitlab-pipelines/containers/ansible subtree_containers-ansible master --rejoin
     git subtree push --prefix gitlab-pipelines/containers/podman subtree_containers-podman master
     git subtree push --prefix=gitlab-pipelines/containers/container-build subtree_containers-container-build master
@@ -62,8 +68,16 @@ while [[ $# -gt 0 ]]; do
         subtree_pull
         shift
         ;;
+        pull-c)
+        container_pull
+        shift
+        ;;
         push)
         subtree_push
+        shift
+        ;;
+        push-c)
+        container_push
         shift
         ;;
         push-ex)
