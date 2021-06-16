@@ -5,3 +5,5 @@
     variables: true
   script:
   - echo "twistlock scan initiated"
+  tags:
+    - openshift

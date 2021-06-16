@@ -7,11 +7,9 @@ stages:
 - security
 
 include:
-  - project: gitlab-pipelines/helpers
-    file:
-      - step_tools/buildah/bud.yml
-      - step_tools/podman/push.yml
-      - step_tools/notifications/slack.yml
+  - local: /helpers/step_tools/buildah/bud.yml
+  - local: /helpers/step_tools/podman/push.yml
+  - local: /helpers/step_tools/notifications/slack.yml
 
 clean_varlibcontainers_pvc:
   stage: .pre
@@ -24,6 +22,8 @@ clean_varlibcontainers_pvc:
   script:
     - podman --storage-driver=$STORAGE_DRIVER rm --all --force
     - podman --storage-driver=$STORAGE_DRIVER rmi --all --force
+  tags:
+    - openshift
 
 container_build_dockerfile:
   extends: .buildah_bud

@@ -12,21 +12,29 @@ default:
   script:
     - coverage run -m pytest
     - coverage report -m pytest
+  tags:
+    - openshift
 
 .python_lint: &python_lint
   inherit:
     variables: true
   script:
     - pylint
+  tags:
+    - openshift
 
 .python_tox: &python_tox
   inherit:
     variables: true
   script:
     - tox
+  tags:
+    - openshift
 
 .python_tox_lint: &python_tox_lint
   inherit:
     variables: true
   script:
     - tox -e lint
+  tags:
+    - openshift

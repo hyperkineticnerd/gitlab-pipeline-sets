@@ -20,3 +20,5 @@
   #   - echo $TARGET
   script:
     - podman pull --tls-verify=$TLSVERIFY --creds $CREDENTIALS $TARGET
+  tags:
+    - openshift

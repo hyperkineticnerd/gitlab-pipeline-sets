@@ -92,3 +92,5 @@ retag_and_push_container:
 #       - project: gitlab-pipeline/pipelines
 #         ref: master
 #         file: /environment-deployment/.gitlab-ci.yml
+#   tags:
+#     - openshift

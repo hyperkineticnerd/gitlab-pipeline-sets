@@ -21,3 +21,5 @@
   script:
     - ansible-galaxy collection install ${ANSIBLE_COLLECTION_URL}
     - ansible-playbook -i ${ANSIBLE_INVENTORY} ${PLAYBOOK}
+  tags:
+    - openshift

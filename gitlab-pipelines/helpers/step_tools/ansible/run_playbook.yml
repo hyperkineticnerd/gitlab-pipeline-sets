@@ -11,3 +11,5 @@
     variables: true
   script:
     - 'ansible-playbook -i ./environments/standard $PLAYBOOK'
+  tags:
+    - openshift

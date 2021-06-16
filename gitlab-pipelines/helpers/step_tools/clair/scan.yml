@@ -5,3 +5,5 @@
     variables: true
   script:
   - echo "clair scan initiated"
+  tags:
+    - openshift

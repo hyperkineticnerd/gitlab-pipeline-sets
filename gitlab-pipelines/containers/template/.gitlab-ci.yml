@@ -17,13 +17,17 @@ var_save:
   artifacts:
     reports:
       dotenv: pipeline.env
+  tags:
+    - openshift
 
 trigger_container_build:
-    stage: trigger-child-pipeline
-    inherit:
-      variables: true
-    trigger:
-        strategy: depend
-        include:
-            - project: gitlab-pipelines/pipelines
-              file: /container-build.yml
+  stage: trigger-child-pipeline
+  inherit:
+    variables: true
+  trigger:
+      strategy: depend
+      include:
+          - project: gitlab-pipelines/pipelines
+            file: /container-build.yml
+  tags:
+    - openshift

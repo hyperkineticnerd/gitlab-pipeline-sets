@@ -6,3 +6,5 @@
     variables: true
   script:
   - echo "sonarqube static code analysis initiated"
+  tags:
+    - openshift

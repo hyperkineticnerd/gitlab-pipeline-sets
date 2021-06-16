@@ -3,6 +3,8 @@
 * Rootless containers in OpenShift?
 * dynamic pvc per project?
 * import public images?
+* ArgoCD manifest/Kustomize build?
+* ArgoCD Helm Deploy?
 
 == old snippets
 
