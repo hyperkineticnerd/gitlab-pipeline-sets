@@ -11,8 +11,6 @@ trigger_container_security:
     include:
       - project: gitlab-pipelines/pipelines
         file: /container-security.yml
-  tags:
-    - openshift
 
 # trigger_dev_deploy:
 #   stage: deploy
@@ -25,5 +23,3 @@ trigger_container_security:
 #     include:
 #       - project: gitlab-pipelines/pipelines
 #         file: /environment-deployment.yml
-#   tags:
-#     - openshift

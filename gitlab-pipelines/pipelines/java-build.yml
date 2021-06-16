@@ -23,5 +23,3 @@ trigger_build_container:
     include:
       - project: gitlab-pipelines/pipelines
         file: /container-build.yml
-  tags:
-    - openshift
