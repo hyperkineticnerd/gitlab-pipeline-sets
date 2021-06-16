@@ -1,6 +1,7 @@
 stages:
   - notifications
-  - trigger-next
+  - trigger-container-build
+  - trigger-container-security
 
 variables:
   TLSVERIFY: 'false'
@@ -22,7 +23,7 @@ container_build_notification:
     MESSAGE: "Container Build Started"
 
 trigger_container_build:
-  stage: trigger-next
+  stage: trigger-container-build
   inherit:
     variables: true
   trigger:
@@ -30,3 +31,13 @@ trigger_container_build:
       include:
           - project: gitlab-pipelines/pipelines
             file: /container-build.yml
+
+trigger_container_security:
+  stage: trigger-container-security
+  inherit:
+    variables: true
+  trigger:
+      strategy: depend
+      include:
+          - project: gitlab-pipelines/pipelines
+            file: /container-security.yml
