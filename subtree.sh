@@ -41,6 +41,10 @@ function container_pull() {
     git subtree pull --squash --prefix=gitlab-pipelines/containers/container-build subtree_containers-container-build master
 }
 
+function examples_pull() {
+    git subtree pull --squash --prefix pipeline-examples/python-seed-app git@gitlab.developer.hkn.lab:pipeline-examples/python-seed-app.git master
+}
+
 function subtree_push() {
     git subtree push --prefix gitlab-pipelines/pipelines subtree_pipelines master
     git subtree push --prefix gitlab-pipelines/helpers subtree_helpers master
@@ -87,6 +91,11 @@ while [[ $# -gt 0 ]]; do
 
         pull-c)
         container_pull
+        shift
+        ;;
+
+        pull-ex)
+        examples_pull
         shift
         ;;
 
