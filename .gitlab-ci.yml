@@ -9,6 +9,8 @@ sonarqube-check:
     key: "${CI_JOB_NAME}"
     paths:
       - .sonar/cache
+  before_script:
+    - export PATH="/usr/local/bin:$PATH"
   script: 
     - sonar-scanner
   allow_failure: true
