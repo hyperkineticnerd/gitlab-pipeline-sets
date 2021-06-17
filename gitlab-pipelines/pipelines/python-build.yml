@@ -12,20 +12,20 @@ include:
   - project: gitlab-pipelines/helpers
     file:
       # - step_tools/notifications/slack.yml
-      # - step_tools/sonarqube/scan.yml
-      - step_tools/python/build.yml
+      - step_tools/sonarqube/scan.yml
+      # - step_tools/python/build.yml
 
-python_lint:
-  extends: .python_tox_lint
-  stage: lint
+sonarqube_scan:
+  extends: .sonarqube_scan
+  stage: static-code-analysis
 
-python_unit_tests:
-  extends: .python_tox
-  stage: unit-tests
+# python_lint:
+#   extends: .python_tox_lint
+#   stage: lint
 
-python_coverage:
-  extends: .python_coverage
-  stage: coverage
+# python_unit_tests:
+#   extends: .python_tox
+#   stage: unit-tests
 
 # python_static_code_analysis:
 #   extends: .python_static_analysis
