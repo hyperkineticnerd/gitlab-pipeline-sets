@@ -1,36 +1,78 @@
 stages:
-- compile
 - lint
 - unit-tests
 - coverage
-- notifications
 - static-code-analysis
+- notifications
+- container-build
+- container-security
+- deploy
 
 include:
   - project: gitlab-pipelines/helpers
     file:
-      - processes/notifications/slack.yml
-      - processes/sonarqube/scan.yml
-      - processes/python/build.yml
+      # - step_tools/notifications/slack.yml
+      - step_tools/sonarqube/scan.yml
+      # - step_tools/python/build.yml
 
-python_lint:
-  extends: .python_lint
-  stage: lint
-
-python_unit_tests:
-  extends: .python_tox
-  stage: unit-tests
-
-python_coverage:
-  extends: .python_coverage
-  stage: coverage
-
-trigger_sonarqube_pipeline:
+sonarqube_scan:
+  extends: .sonarqube_scan
   stage: static-code-analysis
+
+# python_lint:
+#   extends: .python_tox_lint
+#   stage: lint
+
+# python_unit_tests:
+#   extends: .python_tox
+#   stage: unit-tests
+
+# python_coverage:
+#   extends: .python_coverage
+#   stage: coverage
+
+# python_static_code_analysis:
+#   extends: .python_static_analysis
+#   stage: static-code-analysis
+
+trigger_build_container:
+  stage: container-build
   inherit:
     variables: true
+  variables:
+    TLSVERIFY: $TLSVERIFY
+    UNTRUSTED_IMAGE_TARGET: $UNTRUSTED_IMAGE_TARGET
+    TRUSTED_IMAGE_TARGET: $TRUSTED_IMAGE_TARGET
   trigger:
     strategy: depend
     include:
       - project: gitlab-pipelines/pipelines
-        file: /application-build.yml
+        file: /container-build.yml
+
+trigger_container_security:
+  stage: container-security
+  inherit:
+    variables: true
+  variables:
+    TLSVERIFY: $TLSVERIFY
+    UNTRUSTED_IMAGE_TARGET: $UNTRUSTED_IMAGE_TARGET
+    TRUSTED_IMAGE_TARGET: $TRUSTED_IMAGE_TARGET
+  trigger:
+    strategy: depend
+    include:
+      - project: gitlab-pipelines/pipelines
+        file: /container-security.yml
+
+# trigger_dev_deploy:
+#   stage: deploy
+#   inherit:
+#     variables: true
+#   environment:
+#     name: dev
+#   trigger:
+#     strategy: depend
+#     include:
+#       - project: gitlab-pipelines/pipelines
+#         file: /environment-deployment.yml
+#   tags:
+#     - openshift
