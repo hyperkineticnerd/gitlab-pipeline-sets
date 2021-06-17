@@ -1,0 +1,39 @@
+.buildah_bud: &buildah_bud
+  image:
+    name: quay.io/buildah/stable
+    # name: quay.io/ploigos/ploigos-tool-containers
+    # name: registry.access.redhat.com/ubi8/buildah
+    # name: quay.io/hyperkineticnerd/buildah
+  inherit:
+    variables: true
+  variables:
+    BUILDAH_ISOLATION: chroot
+    BUILDAH_FORMAT: oci
+    STORAGE_DRIVER: vfs
+    # FORMAT: oci
+    TLSVERIFY: 'true'
+    CONTEXT: '.'
+    DOCKERFILE: 'Dockerfile'
+    TARGET: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+    CREDENTIALS: ''
+    OPTIONS: ''
+  before_script:
+    - whoami
+    - id
+    - echo $HOME
+    - echo $XDG_RUNTIME_DIR
+    # - ls -lha /home/build/
+    # - ls -lha /home/build/.config/
+    # - ls -lha /home/build/.config/containers/
+    # - cat /home/build/.config/containers/storage.conf
+    # - export HOME=/home/build
+  #   - cat /etc/subuid
+  #   - cat /etc/subgid
+  script:
+    # - buildah --storage-driver=$STORAGE_DRIVER bud --format=$FORMAT --tls-verify=$TLSVERIFY --no-cache -t $TARGET -f $DOCKERFILE $CONTEXT
+    - buildah bud --tls-verify=$TLSVERIFY --no-cache -t $TARGET -f $DOCKERFILE $CONTEXT
+  # after_script:
+    # - skopeo --version
+    # - podman version
+  tags:
+    - openshift

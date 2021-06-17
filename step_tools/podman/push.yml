@@ -1,7 +1,11 @@
-## Podman Pull
-.podman_pull: &podman_pull
+## Podman Push
+.podman_push: &podman_push
   image:
     name: quay.io/podman/stable
+    # name: quay.io/ploigos/ploigos-tool-containers
+    # name: quay.io/hyperkineticnerd/buildah
+  inherit:
+    variables: true
   variables:
     STORAGE_DRIVER: vfs
     TLSVERIFY: 'true'
@@ -15,4 +19,6 @@
   #   - echo $CREDENTIALS
   #   - echo $TARGET
   script:
-    - podman --storage-driver=$STORAGE_DRIVER pull --tls-verify=$TLSVERIFY --creds $CREDENTIALS $TARGET
+    - podman push --tls-verify=$TLSVERIFY --creds $CREDENTIALS $TARGET
+  tags:
+    - openshift

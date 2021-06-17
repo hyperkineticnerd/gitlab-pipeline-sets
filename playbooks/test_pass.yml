@@ -1,7 +1,0 @@
-- hosts: all
-  connection: local
-  collections:
-    - ansible.builtin
-  tasks:
-    - name: passing test
-      command: /bin/true

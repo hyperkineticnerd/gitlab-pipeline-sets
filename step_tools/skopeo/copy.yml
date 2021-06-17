@@ -1,7 +1,10 @@
 ## Skopeo Copy from Source to Destination
 .skopeo_copy: &skopeo_copy
   image:
+    # name: quay.io/hyperkineticnerd/buildah
     name: quay.io/skopeo/stable
+  inherit:
+    variables: true
   variables:
     TLSVERIFY: 'true'
     SRC_IMAGE: 'docker://$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG'
@@ -15,3 +18,5 @@
   #   - echo "skopeo copy $SRC_IMAGE $DEST_IMAGE"
   script:
     - skopeo copy $CMD_OPTS --src-tls-verify=$TLSVERIFY --src-creds $SRC_CREDS $SRC_IMAGE --dest-tls-verify=$TLSVERIFY --dest-creds $DEST_CREDS $DEST_IMAGE
+  tags:
+    - openshift

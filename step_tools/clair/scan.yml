@@ -1,5 +1,9 @@
 .clair_scan: &clair_scan
   image:
     name: registry.access.redhat.com/ubi8/ubi
+  inherit:
+    variables: true
   script:
   - echo "clair scan initiated"
+  tags:
+    - openshift

@@ -1,0 +1,40 @@
+default:
+  image:
+    name: registry.access.redhat.com/ubi8/ubi
+  before_script:
+    - export PATH="/usr/local/bin:${PATH}"
+    - dnf install -y python39
+    - pip3 install coverage pylint pytest tox
+
+.python_coverage: &python_coverage
+  inherit:
+    variables: true
+  script:
+    - coverage run -m pytest
+    - coverage report -m pytest
+  tags:
+    - openshift
+
+.python_lint: &python_lint
+  inherit:
+    variables: true
+  script:
+    - pylint
+  tags:
+    - openshift
+
+.python_tox: &python_tox
+  inherit:
+    variables: true
+  script:
+    - tox
+  tags:
+    - openshift
+
+.python_tox_lint: &python_tox_lint
+  inherit:
+    variables: true
+  script:
+    - tox -e lint
+  tags:
+    - openshift

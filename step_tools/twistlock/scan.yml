@@ -1,5 +1,9 @@
 .twistlock_scan: &twistlock_scan
   image:
     name: registry.access.redhat.com/ubi8/ubi
+  inherit:
+    variables: true
   script:
   - echo "twistlock scan initiated"
+  tags:
+    - openshift
