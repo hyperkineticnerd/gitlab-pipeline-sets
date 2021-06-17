@@ -10,7 +10,7 @@ sonarqube-check:
     paths:
       - .sonar/cache
   before_script:
-    - export PATH="/usr/local/bin:$PATH"
+    - export PATH="/opt/sonar-scanner/bin:/usr/local/bin:$PATH"
   script: 
     - sonar-scanner
   allow_failure: true
