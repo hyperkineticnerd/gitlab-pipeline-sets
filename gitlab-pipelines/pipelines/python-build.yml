@@ -9,7 +9,10 @@ stages:
 - deploy
 
 variables:
+  # DOCKERFILE: 'Dockerfile'
   TLSVERIFY: 'false'
+  UNTRUSTED_IMAGE_TARGET: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-untrusted
+  TRUSTED_IMAGE_TARGET: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-trusted
 
 include:
   - project: gitlab-pipelines/helpers
@@ -38,10 +41,10 @@ trigger_build_container:
   stage: container-build
   inherit:
     variables: true
-  variables:
-    TLSVERIFY: $TLSVERIFY
-    UNTRUSTED_IMAGE_TARGET: $UNTRUSTED_IMAGE_TARGET
-    TRUSTED_IMAGE_TARGET: $TRUSTED_IMAGE_TARGET
+  # variables:
+  #   TLSVERIFY: $TLSVERIFY
+  #   UNTRUSTED_IMAGE_TARGET: $UNTRUSTED_IMAGE_TARGET
+  #   TRUSTED_IMAGE_TARGET: $TRUSTED_IMAGE_TARGET
   trigger:
     strategy: depend
     include:
@@ -52,10 +55,10 @@ trigger_container_security:
   stage: container-security
   inherit:
     variables: true
-  variables:
-    TLSVERIFY: $TLSVERIFY
-    UNTRUSTED_IMAGE_TARGET: $UNTRUSTED_IMAGE_TARGET
-    TRUSTED_IMAGE_TARGET: $TRUSTED_IMAGE_TARGET
+  # variables:
+  #   TLSVERIFY: $TLSVERIFY
+  #   UNTRUSTED_IMAGE_TARGET: $UNTRUSTED_IMAGE_TARGET
+  #   TRUSTED_IMAGE_TARGET: $TRUSTED_IMAGE_TARGET
   trigger:
     strategy: depend
     include:
