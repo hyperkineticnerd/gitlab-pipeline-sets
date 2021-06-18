@@ -8,6 +8,10 @@ stages:
 - container-security
 - deploy
 
+default:
+  variables:
+    TLSVERIFY: 'false'
+
 include:
   - project: gitlab-pipelines/helpers
     file:
