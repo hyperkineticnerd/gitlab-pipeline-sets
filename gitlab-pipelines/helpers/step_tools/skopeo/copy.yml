@@ -1,7 +1,6 @@
 ## Skopeo Copy from Source to Destination
 .skopeo_copy: &skopeo_copy
   image:
-    # name: quay.io/hyperkineticnerd/buildah
     name: quay.io/skopeo/stable
   inherit:
     variables: true

@@ -2,8 +2,6 @@
 .podman_pull: &podman_pull
   image:
     name: quay.io/podman/stable
-    # name: quay.io/ploigos/ploigos-tool-containers
-    # name: quay.io/hyperkineticnerd/buildah
   inherit:
     variables: true
   variables:
@@ -12,12 +10,7 @@
     TARGET: '$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG'
     CREDENTIALS: '$CI_REGISTRY_USER:$CI_REGISTRY_PASSWORD'
   # before_script:
-  #   - whoami
-  #   - echo $HOME
-  #   - echo $XDG_RUNTIME_DIR
-  #   - podman --storage-driver=$STORAGE_DRIVER version
-  #   - echo $CREDENTIALS
-  #   - echo $TARGET
+  #   - id
   script:
     - podman pull --tls-verify=$TLSVERIFY --creds $CREDENTIALS $TARGET
   tags:
