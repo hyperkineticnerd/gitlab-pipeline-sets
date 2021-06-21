@@ -12,23 +12,23 @@ include:
     file:
       - step_tools/notifications/slack.yml
       - step_tools/clair/scan.yml
-      - step_tools/podman/pull.yml
-      - step_tools/podman/push.yml
+      # - step_tools/podman/pull.yml
+      # - step_tools/podman/push.yml
       - step_tools/skopeo/copy.yml
       - step_tools/twistlock/scan.yml
 
-pull_image:
-  extends: .podman_pull
-  stage: pull
-  inherit:
-    variables: true
-  variables:
-    TARGET: $UNTRUSTED_IMAGE_TARGET
+# pull_image:
+#   extends: .podman_pull
+#   stage: pull
+#   inherit:
+#     variables: true
+#   variables:
+#     TARGET: $UNTRUSTED_IMAGE_TARGET
 
 clair_scanner:
   extends: .clair_scan
   stage: scan
-  needs: [pull_image]
+  needs: []
   inherit:
     variables: true
   variables:
@@ -37,7 +37,7 @@ clair_scanner:
 twistlock_scan:
   extends: .twistlock_scan
   stage: scan
-  needs: [pull_image]
+  needs: []
   inherit:
     variables: true
   variables:

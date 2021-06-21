@@ -8,10 +8,12 @@
     STORAGE_DRIVER: vfs
     TLSVERIFY: 'true'
     TARGET: '$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG'
-    CREDENTIALS: '$CI_REGISTRY_USER:$CI_REGISTRY_PASSWORD'
+    # CREDENTIALS: '$CI_REGISTRY_USER:$CI_REGISTRY_PASSWORD'
+    REGISTRY_AUTH_FILE: '/var/run/secrets/nexus/config.json'
   # before_script:
   #   - id
   script:
-    - podman push --tls-verify=$TLSVERIFY --creds $CREDENTIALS $TARGET
+    # - podman push --tls-verify=$TLSVERIFY --creds $CREDENTIALS $TARGET
+    - podman push --tls-verify=$TLSVERIFY $TARGET
   tags:
     - openshift
