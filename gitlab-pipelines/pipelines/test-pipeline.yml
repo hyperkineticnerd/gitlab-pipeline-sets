@@ -1,0 +1,37 @@
+stages:
+- lint
+- unit-tests
+- coverage
+- static-code-analysis
+- notifications
+- container-build
+- container-security
+- deploy
+
+variables:
+  TLSVERIFY: 'false'
+  UNTRUSTED_IMAGE_TARGET: nexus.developer.hkn.lab:5001/untrusted/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA-test
+  TRUSTED_IMAGE_TARGET: nexus.developer.hkn.lab:5001/trusted/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA-test
+
+include:
+  - project: gitlab-pipelines/helpers
+    file:
+      # - step_tools/notifications/slack.yml
+      - step_tools/sonarqube/scan.yml
+      # - step_tools/python/build.yml
+
+test_openshift_secrets:
+  stage: lint
+  tags:
+    - openshift
+  image:
+    # name: registry.access.redhat.com/ubi8/pause
+    name: quay.io/buildah/stable
+    # entrypoint: ["/bin/sh", "-c"]
+  # before_script:
+  #   - PATH=/usr/local/bin:/usr/bin:/bin"
+  #   - export PATH
+  script:
+    # - /pause
+    # - echo "Running"
+    - sleep 6000
