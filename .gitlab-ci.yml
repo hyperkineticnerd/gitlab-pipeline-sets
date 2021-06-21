@@ -1,6 +1,7 @@
 stages:
   - notifications
-  - trigger-next
+  - trigger-container-build
+  - trigger-container-security
 
 variables:
   TLSVERIFY: 'false'
@@ -11,7 +12,7 @@ variables:
 include:
   - project: gitlab-pipelines/helpers
     file:
-      - processes/notifications/slack.yml
+      - step_tools/notifications/slack.yml
 
 container_build_notification:
   extends: .send_slack_notification
@@ -19,14 +20,24 @@ container_build_notification:
   inherit:
     variables: true
   variables:
-    MESSAGE: "Container Build Complete"
+    MESSAGE: "Container Build Started"
 
-# trigger_container_build:
-#     stage: trigger-next
-#     inherit:
-#       variables: true
-#     trigger:
-#         strategy: depend
-#         include:
-#             - project: gitlab-pipelines/pipelines
-#               file: /container-build.yml
+trigger_container_build:
+  stage: trigger-container-build
+  inherit:
+    variables: true
+  trigger:
+      strategy: depend
+      include:
+          - project: gitlab-pipelines/pipelines
+            file: /container-build.yml
+
+trigger_container_security:
+  stage: trigger-container-security
+  inherit:
+    variables: true
+  trigger:
+      strategy: depend
+      include:
+          - project: gitlab-pipelines/pipelines
+            file: /container-security.yml
