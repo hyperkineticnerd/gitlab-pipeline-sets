@@ -10,39 +10,39 @@ include:
   - project: gitlab-pipelines/helpers
     ref: master
     file:
-      - step_tools/buildah/bud.yml
-      - step_tools/podman/push.yml
+      - step_tools/buildah/bud_push.yml
+      # - step_tools/podman/push.yml
       - step_tools/notifications/slack.yml
 
-clean_varlibcontainers_pvc:
-  stage: .pre
-  image:
-    name: quay.io/podman/stable
-  inherit:
-    variables: true
-  variables:
-    STORAGE_DRIVER: vfs
-  script:
-    - podman rm --all --force
-    - podman rmi --all --force
-  tags:
-    - openshift
+# clean_varlibcontainers_pvc:
+#   stage: .pre
+#   image:
+#     name: quay.io/podman/stable
+#   inherit:
+#     variables: true
+#   variables:
+#     STORAGE_DRIVER: vfs
+#   script:
+#     - podman rm --all --force
+#     - podman rmi --all --force
+#   tags:
+#     - openshift
 
 container_build_dockerfile:
-  extends: .buildah_bud
+  extends: .buildah_bud_push
   stage: build
   # inherit:
   #   variables: true
   variables:
     TARGET: $UNTRUSTED_IMAGE_TARGET
 
-container_build_push_image:
-  extends: .podman_push
-  stage: build-push
-  # inherit:
-  #   variables: true
-  variables:
-    TARGET: $UNTRUSTED_IMAGE_TARGET
+# container_build_push_image:
+#   extends: .podman_push
+#   stage: build-push
+#   # inherit:
+#   #   variables: true
+#   variables:
+#     TARGET: $UNTRUSTED_IMAGE_TARGET
 
 container_build_notification:
   extends: .send_slack_notification
