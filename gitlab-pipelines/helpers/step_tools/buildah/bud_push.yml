@@ -25,7 +25,7 @@
   script:
     - buildah bud --tls-verify=$TLSVERIFY --no-cache -t $TARGET -f $DOCKERFILE $CONTEXT
     # - buildah push --tls-verify=$TLSVERIFY --creds $CREDENTIALS $TARGET
-    - buildah login nexus.developer.hkn.lab:5001
+    - buildah login --username=snelson nexus.developer.hkn.lab:5001
     - buildah push --tls-verify=$TLSVERIFY $TARGET
   # after_script:
     # - skopeo --version
