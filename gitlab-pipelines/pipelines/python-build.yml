@@ -21,6 +21,22 @@ include:
       - step_tools/sonarqube/scan.yml
       # - step_tools/python/build.yml
 
+# test_openshift_secrets:
+#   stage: lint
+#   tags:
+#     - openshift
+#   image:
+#     # name: registry.access.redhat.com/ubi8/pause
+#     name: quay.io/buildah/stable
+#     # entrypoint: ["/bin/sh", "-c"]
+#   # before_script:
+#   #   - PATH=/usr/local/bin:/usr/bin:/bin"
+#   #   - export PATH
+#   script:
+#     # - /pause
+#     # - echo "Running"
+#     - sleep 6000
+
 sonarqube_scan:
   extends: .sonarqube_scan
   stage: static-code-analysis

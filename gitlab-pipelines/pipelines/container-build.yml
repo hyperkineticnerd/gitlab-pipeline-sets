@@ -23,8 +23,8 @@ clean_varlibcontainers_pvc:
   variables:
     STORAGE_DRIVER: vfs
   script:
-    - podman --storage-driver=$STORAGE_DRIVER rm --all --force
-    - podman --storage-driver=$STORAGE_DRIVER rmi --all --force
+    - podman rm --all --force
+    - podman rmi --all --force
   tags:
     - openshift
 
