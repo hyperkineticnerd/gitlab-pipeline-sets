@@ -16,11 +16,7 @@
     TARGET: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
     CREDENTIALS: ''
     OPTIONS: ''
-<<<<<<< HEAD
-    REGISTRY_AUTH_FILE: '/var/run/secrets/nexus/docker.json'
-=======
     REGISTRY_AUTH_FILE: '/var/run/secrets/nexus/config.json'
->>>>>>> acf0cf7d45b7d878a6b7be23eaaf3319f61e98b9
   # before_script:
   #   - whoami
   #   - id
