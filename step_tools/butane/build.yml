@@ -1,0 +1,13 @@
+.butane_build: &butane_build
+  image:
+    name: quay.io/coreos/butane:release
+  inherit:
+    variables: true
+  variables:
+    INPUT: $BUTANE_FILE
+    OUTPUT: $IGNITION_FILE
+  script:
+    - export PATH="/usr/local/bin:$PATH"
+    - butane --pretty --strict $INPUT > $OUTPUT
+  tags:
+    - openshift
