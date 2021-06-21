@@ -8,12 +8,34 @@ stages:
 - container-security
 - deploy
 
+variables:
+  # DOCKERFILE: 'Dockerfile'
+  TLSVERIFY: 'false'
+  UNTRUSTED_IMAGE_TARGET: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-untrusted
+  TRUSTED_IMAGE_TARGET: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-trusted
+
 include:
   - project: gitlab-pipelines/helpers
     file:
       # - step_tools/notifications/slack.yml
       - step_tools/sonarqube/scan.yml
       # - step_tools/python/build.yml
+
+# test_openshift_secrets:
+#   stage: lint
+#   tags:
+#     - openshift
+#   image:
+#     # name: registry.access.redhat.com/ubi8/pause
+#     name: quay.io/buildah/stable
+#     # entrypoint: ["/bin/sh", "-c"]
+#   # before_script:
+#   #   - PATH=/usr/local/bin:/usr/bin:/bin"
+#   #   - export PATH
+#   script:
+#     # - /pause
+#     # - echo "Running"
+#     - sleep 6000
 
 sonarqube_scan:
   extends: .sonarqube_scan
@@ -27,10 +49,6 @@ sonarqube_scan:
 #   extends: .python_tox
 #   stage: unit-tests
 
-# python_coverage:
-#   extends: .python_coverage
-#   stage: coverage
-
 # python_static_code_analysis:
 #   extends: .python_static_analysis
 #   stage: static-code-analysis
@@ -39,10 +57,10 @@ trigger_build_container:
   stage: container-build
   inherit:
     variables: true
-  variables:
-    TLSVERIFY: $TLSVERIFY
-    UNTRUSTED_IMAGE_TARGET: $UNTRUSTED_IMAGE_TARGET
-    TRUSTED_IMAGE_TARGET: $TRUSTED_IMAGE_TARGET
+  # variables:
+  #   TLSVERIFY: $TLSVERIFY
+  #   UNTRUSTED_IMAGE_TARGET: $UNTRUSTED_IMAGE_TARGET
+  #   TRUSTED_IMAGE_TARGET: $TRUSTED_IMAGE_TARGET
   trigger:
     strategy: depend
     include:
@@ -53,10 +71,10 @@ trigger_container_security:
   stage: container-security
   inherit:
     variables: true
-  variables:
-    TLSVERIFY: $TLSVERIFY
-    UNTRUSTED_IMAGE_TARGET: $UNTRUSTED_IMAGE_TARGET
-    TRUSTED_IMAGE_TARGET: $TRUSTED_IMAGE_TARGET
+  # variables:
+  #   TLSVERIFY: $TLSVERIFY
+  #   UNTRUSTED_IMAGE_TARGET: $UNTRUSTED_IMAGE_TARGET
+  #   TRUSTED_IMAGE_TARGET: $TRUSTED_IMAGE_TARGET
   trigger:
     strategy: depend
     include:

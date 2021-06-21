@@ -23,31 +23,31 @@ clean_varlibcontainers_pvc:
   variables:
     STORAGE_DRIVER: vfs
   script:
-    - podman --storage-driver=$STORAGE_DRIVER rm --all --force
-    - podman --storage-driver=$STORAGE_DRIVER rmi --all --force
+    - podman rm --all --force
+    - podman rmi --all --force
   tags:
     - openshift
 
 container_build_dockerfile:
   extends: .buildah_bud
   stage: build
-  inherit:
-    variables: true
+  # inherit:
+  #   variables: true
   variables:
     TARGET: $UNTRUSTED_IMAGE_TARGET
 
 container_build_push_image:
   extends: .podman_push
   stage: build-push
-  inherit:
-    variables: true
+  # inherit:
+  #   variables: true
   variables:
     TARGET: $UNTRUSTED_IMAGE_TARGET
 
 container_build_notification:
   extends: .send_slack_notification
   stage: notifications
-  inherit:
-    variables: true
+  # inherit:
+  #   variables: true
   variables:
     MESSAGE: "Container Build Complete"
