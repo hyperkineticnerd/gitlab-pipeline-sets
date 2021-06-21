@@ -11,8 +11,8 @@ stages:
 variables:
   # DOCKERFILE: 'Dockerfile'
   TLSVERIFY: 'false'
-  UNTRUSTED_IMAGE_TARGET: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-untrusted
-  TRUSTED_IMAGE_TARGET: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-trusted
+  UNTRUSTED_IMAGE_TARGET: nexus.developer.hkn.lab:5001/untrusted/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA-test
+  TRUSTED_IMAGE_TARGET: nexus.developer.hkn.lab:5001/trusted/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA-test
 
 include:
   - project: gitlab-pipelines/helpers
