@@ -8,14 +8,16 @@
     TLSVERIFY: 'true'
     SRC_IMAGE: 'docker://$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG'
     SRC_TLSVERIFY: '$TLSVERIFY'
-    SRC_CREDS: '$CI_REGISTRY_USER:$CI_REGISTRY_PASSWORD'
+    # SRC_CREDS: '$CI_REGISTRY_USER:$CI_REGISTRY_PASSWORD'
     DEST_IMAGE: 'docker://$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG'
     DEST_TLSVERIFY: '$TLSVERIFY'
-    DEST_CREDS: '$CI_REGISTRY_USER:$CI_REGISTRY_PASSWORD'
-    CMD_OPTS: ''
+    # DEST_CREDS: '$CI_REGISTRY_USER:$CI_REGISTRY_PASSWORD'
+    # CMD_OPTS: ''
+    REGISTRY_AUTH_FILE: '/var/run/secrets/nexus/config.json'
   # before_script:
   #   - echo "skopeo copy $SRC_IMAGE $DEST_IMAGE"
   script:
-    - skopeo copy $CMD_OPTS --src-tls-verify=$TLSVERIFY --src-creds $SRC_CREDS $SRC_IMAGE --dest-tls-verify=$TLSVERIFY --dest-creds $DEST_CREDS $DEST_IMAGE
+    # - skopeo copy $CMD_OPTS --src-tls-verify=$TLSVERIFY --src-creds $SRC_CREDS $SRC_IMAGE --dest-tls-verify=$TLSVERIFY --dest-creds $DEST_CREDS $DEST_IMAGE
+    - skopeo copy $CMD_OPTS --src-tls-verify=$TLSVERIFY $SRC_IMAGE --dest-tls-verify=$TLSVERIFY $DEST_IMAGE
   tags:
     - openshift
