@@ -1,6 +1,7 @@
 .clair_scan: &clair_scan
   image:
-    name: registry.access.redhat.com/ubi8/ubi
+    # name: registry.access.redhat.com/ubi8/ubi
+    name: quay.io/podman/stable
   inherit:
     variables: true
   variables:
