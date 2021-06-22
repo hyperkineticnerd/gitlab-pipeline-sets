@@ -6,6 +6,7 @@
   variables:
     TLSVERIFY: 'true'
     TARGET: '$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG'
+    REGISTRY_AUTH_FILE: '/var/run/secrets/nexus/config.json'
   script:
     - podman pull --tls-verify=$TLSVERIFY $TARGET
     - echo "twistlock scan initiated"
