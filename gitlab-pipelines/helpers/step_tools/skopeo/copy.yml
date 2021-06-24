@@ -5,15 +5,17 @@
   inherit:
     variables: true
   variables:
+    # cli env vars
+    REGISTRY_AUTH_FILE: '/var/run/secrets/nexus/config.json'
+    # gitlab vars
     TLSVERIFY: 'true'
-    SRC_IMAGE: 'docker://$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG'
-    SRC_TLSVERIFY: '$TLSVERIFY'
+    TLSVERIFY_SRC: '$TLSVERIFY'
+    TLSVERIFY_DEST: '$TLSVERIFY'
+    IMAGE_SRC: 'docker://$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG'
+    IMAGE_DEST: 'docker://$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG'
     # SRC_CREDS: '$CI_REGISTRY_USER:$CI_REGISTRY_PASSWORD'
-    DEST_IMAGE: 'docker://$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG'
-    DEST_TLSVERIFY: '$TLSVERIFY'
     # DEST_CREDS: '$CI_REGISTRY_USER:$CI_REGISTRY_PASSWORD'
     # CMD_OPTS: ''
-    REGISTRY_AUTH_FILE: '/var/run/secrets/nexus/config.json'
   # before_script:
   #   - echo "skopeo copy $SRC_IMAGE $DEST_IMAGE"
   script:

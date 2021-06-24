@@ -4,9 +4,11 @@
   inherit:
     variables: true
   variables:
+    # cli env vars
     BUILDAH_ISOLATION: chroot
     BUILDAH_FORMAT: oci
     STORAGE_DRIVER: vfs
+    # gitlab vars
     TLSVERIFY: 'true'
     CONTEXT: '.'
     DOCKERFILE: 'Dockerfile'

@@ -5,10 +5,12 @@
   inherit:
     variables: true
   variables:
+    # cli env vars
+    REGISTRY_AUTH_FILE: '/var/run/secrets/nexus/config.json'
+    # gitlab vars
+    QUAY_REGISTRY: ''
     TLSVERIFY: 'true'
     TARGET: '$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG'
-    REGISTRY_AUTH_FILE: '/var/run/secrets/nexus/config.json'
-    QUAY_REGISTRY: ''
   script:
     - podman pull --tls-verify=$TLSVERIFY $TARGET
     - echo "clair scan initiated"
