@@ -1,9 +1,6 @@
 .buildah_bud_push: &buildah_bud_push
   image:
     name: quay.io/buildah/stable
-    # name: quay.io/ploigos/ploigos-tool-containers
-    # name: registry.access.redhat.com/ubi8/buildah
-    # name: quay.io/hyperkineticnerd/buildah
   inherit:
     variables: true
   variables:
@@ -18,17 +15,11 @@
     OPTIONS: ''
     REGISTRY_AUTH_FILE: '/var/run/secrets/nexus/config.json'
   # before_script:
-  #   - whoami
   #   - id
-  #   - echo $HOME
-  #   - echo $XDG_RUNTIME_DIR
   script:
     - buildah bud --tls-verify=$TLSVERIFY --no-cache -t $TARGET -f $DOCKERFILE $CONTEXT
     # - buildah push --tls-verify=$TLSVERIFY --creds $CREDENTIALS $TARGET
-    - buildah login nexus.developer.hkn.lab:5001
     - buildah push --tls-verify=$TLSVERIFY $TARGET
   # after_script:
-    # - skopeo --version
-    # - podman version
   tags:
     - openshift

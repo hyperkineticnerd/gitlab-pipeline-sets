@@ -1,9 +1,15 @@
 .twistlock_scan: &twistlock_scan
   image:
-    name: registry.access.redhat.com/ubi8/ubi
+    # name: registry.access.redhat.com/ubi8/ubi
+    name: quay.io/podman/stable
   inherit:
     variables: true
+  variables:
+    TLSVERIFY: 'true'
+    TARGET: '$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG'
+    REGISTRY_AUTH_FILE: '/var/run/secrets/nexus/config.json'
   script:
-  - echo "twistlock scan initiated"
+    - podman pull --tls-verify=$TLSVERIFY $TARGET
+    - echo "twistlock scan initiated"
   tags:
     - openshift

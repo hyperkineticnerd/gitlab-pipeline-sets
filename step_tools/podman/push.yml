@@ -2,23 +2,18 @@
 .podman_push: &podman_push
   image:
     name: quay.io/podman/stable
-    # name: quay.io/ploigos/ploigos-tool-containers
-    # name: quay.io/hyperkineticnerd/buildah
   inherit:
     variables: true
   variables:
     STORAGE_DRIVER: vfs
     TLSVERIFY: 'true'
     TARGET: '$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG'
-    CREDENTIALS: '$CI_REGISTRY_USER:$CI_REGISTRY_PASSWORD'
+    # CREDENTIALS: '$CI_REGISTRY_USER:$CI_REGISTRY_PASSWORD'
+    REGISTRY_AUTH_FILE: '/var/run/secrets/nexus/config.json'
   # before_script:
-  #   - whoami
-  #   - echo $HOME
-  #   - echo $XDG_RUNTIME_DIR
-  #   - podman --storage-driver=$STORAGE_DRIVER version
-  #   - echo $CREDENTIALS
-  #   - echo $TARGET
+  #   - id
   script:
-    - podman push --tls-verify=$TLSVERIFY --creds $CREDENTIALS $TARGET
+    # - podman push --tls-verify=$TLSVERIFY --creds $CREDENTIALS $TARGET
+    - podman push --tls-verify=$TLSVERIFY $TARGET
   tags:
     - openshift

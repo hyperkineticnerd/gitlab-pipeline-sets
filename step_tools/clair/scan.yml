@@ -1,9 +1,17 @@
 .clair_scan: &clair_scan
   image:
-    name: registry.access.redhat.com/ubi8/ubi
+    # name: registry.access.redhat.com/ubi8/ubi
+    name: quay.io/podman/stable
   inherit:
     variables: true
+  variables:
+    TLSVERIFY: 'true'
+    TARGET: '$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG'
+    REGISTRY_AUTH_FILE: '/var/run/secrets/nexus/config.json'
+    QUAY_REGISTRY: ''
   script:
-  - echo "clair scan initiated"
+    - podman pull --tls-verify=$TLSVERIFY $TARGET
+    - echo "clair scan initiated"
+    # - clairctl --host $QUAY_REGISTRY report $TARGET
   tags:
     - openshift
