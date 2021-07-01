@@ -1,0 +1,14 @@
+## OpenShift ImageStream Label
+.openshift_label: &openshift_label
+  image:
+    image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
+  inherit:
+    variables: true
+  variables:
+    IMAGESTREAM_PATCH: '{"metadata":{"labels":{"public-registry-image": "true"}}}'
+    IMAGE_NAME: ''
+    IMAGE_NAMESPACE: ''
+  script:
+    - oc patch is/${IMAGE_NAME} -p ${IMAGESTREAM_PATCH} -n ${IMAGE_NAMESPACE}
+  tags:
+    - openshift

@@ -1,0 +1,14 @@
+## OpenShift Import Image
+.openshift_import: &openshift_import
+  image:
+    image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
+  inherit:
+    variables: true
+  variables:
+    IMAGE_DEST: ''
+    IMAGE_SRC: ''
+    IMAGE_NAMESPACE: ''
+  script:
+    - oc import-image ${IMAGE_DEST} --from ${IMAGE_SRC} --confirm --reference-policy=local -n ${IMAGE_NAMESPACE}
+  tags:
+    - openshift
